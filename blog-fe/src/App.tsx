@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import { AdminPage } from "./pages/AdminPage";
 import { PageLayout } from "./components/PageLayout";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,3 +22,6 @@ function App() {
 }
 
 export default App;
+
+
+// xUy8Q~YtMIhzV0FP70W3aD2QiQoxHBLb-05E9a6y
