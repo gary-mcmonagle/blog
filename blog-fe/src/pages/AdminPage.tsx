@@ -1,16 +1,14 @@
 import { useIsAuthenticated } from "@azure/msal-react";
-import { useEffect } from "react";
 import { getWeatherForecast } from "../api/getWeatherForecast";
 import { SignInButton } from "../components/SignInButton";
 import React, { useState } from "react";
-import { PageLayout } from "../components/PageLayout";
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
+import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
 import Button from "react-bootstrap/Button";
 
 
 function ProfileContent() {
-    const { instance, accounts, inProgress } = useMsal();
+    const { instance, accounts } = useMsal();
     const [accessToken, setAccessToken] = useState<any>(null);
 
     const name = accounts[0] && accounts[0].name;

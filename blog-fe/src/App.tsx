@@ -1,9 +1,6 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AdminPage } from "./pages/AdminPage";
-import { PageLayout } from "./components/PageLayout";
 
 
 const router = createBrowserRouter([
