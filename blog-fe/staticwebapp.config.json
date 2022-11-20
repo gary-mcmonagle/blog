@@ -1,8 +1,9 @@
 {
-    "trailingSlash": "auto",
-    "routes": [
-      {
-        "route": "/admin"
-      }
-    ]
+  "navigationFallback": {
+     "rewrite": "index.html",
+     "exclude": ["/static/media/*.{png,jpg,jpeg,gif,bmp}",   "/static/css/*"]
+  },
+  "mimeTypes": {
+      ".json": "text/json"
   }
+}
