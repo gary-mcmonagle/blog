@@ -2,6 +2,7 @@ export const msalConfig = {
   auth: {
     // clientId: "ee0228cf-f199-4c6e-8234-cf642b3849f7",
     clientId: process.env.REACT_APP_AUTH_CLIENT_ID || "",
+    adminApiScope: process.env.REACT_APP_ADMIN_API_SCOPE || "",
     authority:
       //"https://login.microsoftonline.com/5bbc8cf7-f071-4857-bc9d-7b2c9bbd3e9e", // This is a URL (e.g. https://login.microsoftonline.com/5bbc8cf7-f071-4857-bc9d-7b2c9bbd3e9e)
       process.env.REACT_APP_AUTH_AUTHORITY || "", // This is a URL (e.g. https://login.microsoftonline.com/5bbc8cf7-f071-4857-bc9d-7b2c9bbd3e9e)
