@@ -14,12 +14,15 @@ az Login
 az group create --name $rg --location $location
 
 # Create app service plan
-az appservice plan create --name $appServicePlan \
-     --resource-group $rg \
-        --sku free
+#az appservice plan create --name $appServicePlan \
+#     --resource-group $rg \
+#       --sku free
+
+az staticwebapp create --name $feWebappName --resource-group $rg --app-location blog-fe --location $location  \
+        --branch main --login-with-github --source https://github.com/gary-mcmonagle/blog
 
 # create fe app
-az webapp create --name $feWebappName --resource-group $rg --plan $appServicePlan
+# az webapp create --name $feWebappName --resource-group $rg --plan $appServicePlan
 
 # create storage account for function apps
 az storage account create -n $storageAccountName --resource-group  $rg --location $location --sku Standard_LRS
