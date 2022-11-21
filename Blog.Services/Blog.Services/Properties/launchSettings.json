@@ -1,9 +1,0 @@
-﻿{
-  "profiles": {
-    "Blog.Services": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7265",
-      "launchBrowser": false
-    }
-  }
-}
