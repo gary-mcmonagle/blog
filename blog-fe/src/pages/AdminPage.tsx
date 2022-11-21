@@ -17,7 +17,8 @@ function ProfileContent() {
         getWeatherForecast(accessToken).then((d) => console.log(d));
         const request = {
             ...loginRequest,
-            scopes: ["api://59eec992-c071-492a-8fcd-9639077e3b39/user_impersonation"],
+            // scopes: ["api://59eec992-c071-492a-8fcd-9639077e3b39/user_impersonation"],
+            scopes: [process.env.REACT_APP_ADMIN_API_SCOPE || ''],
             account: accounts[0]
         };
 
