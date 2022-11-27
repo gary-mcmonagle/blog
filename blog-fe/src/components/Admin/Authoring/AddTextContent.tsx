@@ -6,10 +6,12 @@ import "react-quill/dist/quill.snow.css";
 type AddTextContentProps = {
   onChange: (value: string) => void;
   startValue?: string;
-
 };
 
-export const AddTextContent = ({ onChange, startValue = "" }: AddTextContentProps) => {
+export const AddTextContent = ({
+  onChange,
+  startValue = "",
+}: AddTextContentProps) => {
   const [value, setValue] = useState(startValue);
   return (
     <>
