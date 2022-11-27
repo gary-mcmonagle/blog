@@ -2,7 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthPage } from "./pages/AuthPage";
 import { AdminPage } from "./pages/AdminPage";
-
+import { AdminBlogAuthor } from "./pages/Admin/AdminBlogAuthor";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AdminPage></AdminPage>,
   },
+  {
+    path: "/admin/author/:id",
+    element: <AdminBlogAuthor></AdminBlogAuthor>,
+  },
 ]);
 
 function App() {
@@ -24,6 +28,5 @@ function App() {
 }
 
 export default App;
-
 
 // xUy8Q~YtMIhzV0FP70W3aD2QiQoxHBLb-05E9a6y
