@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { BlogTemplates } from "../../config";
-import { GridAuthor } from "./Author/GridAuthor";
+import { GridAuthor } from "./Author/NewGridAuthor";
+import { BasicTemplate } from "./Author/TemplateAuthoring/BasicTemplate";
 
 export const AdminBlogAuthor = () => {
   let { id = "" } = useParams();
@@ -10,6 +11,8 @@ export const AdminBlogAuthor = () => {
   switch (templateName) {
     case "grid":
       return <GridAuthor></GridAuthor>;
+    case "basic":
+      return <BasicTemplate></BasicTemplate>;
     default:
       return <></>;
   }

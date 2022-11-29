@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthPage } from "./pages/AuthPage";
 import { AdminPage } from "./pages/AdminPage";
 import { AdminBlogAuthor } from "./pages/Admin/AdminBlogAuthor";
+import { BlogPage } from "./pages/Blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/author/:id",
     element: <AdminBlogAuthor></AdminBlogAuthor>,
+  },
+  {
+    path: "/blog/:blogSlug",
+    element: <BlogPage></BlogPage>,
   },
 ]);
 
