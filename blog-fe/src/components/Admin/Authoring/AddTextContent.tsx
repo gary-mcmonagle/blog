@@ -16,6 +16,9 @@ export const AddTextContent = ({
   return (
     <>
       <ReactQuill
+        modules={{
+          toolbar: [['code-block']]  
+        }}
         theme="snow"
         value={value}
         onChange={(val) => {

@@ -1,21 +1,26 @@
-import { Fab } from "@mui/material";
 import { useState } from "react";
-import { AddContent } from "../../../../components/Admin/Authoring/AddContent";
 import { AddTextContent } from "../../../../components/Admin/Authoring/AddTextContent";
-import PreviewIcon from "@mui/icons-material/Preview";
-import SaveIcon from "@mui/icons-material/Save";
 import { PreviewButton } from "../../../../components/Admin/Authoring/PreviewButton";
 import { SaveButton } from "../../../../components/Admin/Authoring/SaveButton";
 import { BlogTemplates } from "../../../../config";
 import { useNavigate } from "react-router-dom";
+import {
+  getPreviewContent,
+  savePreviewContent,
+} from "../../../../utils/previewStorage";
 
 export const BasicTemplate = ({
   startingContent = "",
 }: {
   startingContent?: string;
 }) => {
-  const [content, setContent] = useState<string>(startingContent);
+  const pageData = getPreviewContent();
+  console.log({ pageData });
   const templateId = BlogTemplates.find((t) => t.name === "basic")?.id!;
+  const defaultContent =
+    pageData?.templateId === templateId ? pageData?.content : "";
+
+  const [content, setContent] = useState<string>(defaultContent);
   const navigate = useNavigate();
 
   return (
@@ -24,15 +29,12 @@ export const BasicTemplate = ({
         onChange={(val) => {
           setContent(val);
         }}
+        startValue={defaultContent}
       ></AddTextContent>
       <PreviewButton
         onClick={() => {
-          sessionStorage.setItem(
-            "previewData",
-            JSON.stringify({ id: templateId, content })
-          );
+          savePreviewContent({ content, templateId });
           navigate(`/blog/preview`);
-
         }}
       ></PreviewButton>
       <SaveButton onClick={() => {}}></SaveButton>
