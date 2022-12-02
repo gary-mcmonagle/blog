@@ -2,7 +2,7 @@ import { Fab } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPreviewContent } from "../../utils/previewStorage";
 import { BasicBlog } from "./BasicBlog";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const BlogPage = () => {
   let { blogSlug = "" } = useParams();
@@ -27,7 +27,7 @@ export const BlogPage = () => {
             navigate(`/admin/author/${templateId}`);
           }}
         >
-            <ArrowBackIcon/>
+          <ArrowBackIcon />
         </Fab>
       )}
       {previewContent && (

@@ -8,12 +8,9 @@ import {
   getPreviewContent,
   savePreviewContent,
 } from "../../../../utils/previewStorage";
+import { BlogSaveModal } from "../BlogSaveModal";
 
-export const BasicTemplate = ({
-  startingContent = "",
-}: {
-  startingContent?: string;
-}) => {
+export const BasicTemplate = () => {
   const pageData = getPreviewContent();
   console.log({ pageData });
   const templateId = BlogTemplates.find((t) => t.name === "basic")?.id!;
@@ -21,10 +18,17 @@ export const BasicTemplate = ({
     pageData?.templateId === templateId ? pageData?.content : "";
 
   const [content, setContent] = useState<string>(defaultContent);
+  const [saveModalOpen, setSaveModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   return (
     <>
+      <BlogSaveModal
+        content={content}
+        templateId={templateId}
+        open={saveModalOpen}
+        onClose={() => setSaveModalOpen(false)}
+      ></BlogSaveModal>
       <AddTextContent
         onChange={(val) => {
           setContent(val);
@@ -37,7 +41,11 @@ export const BasicTemplate = ({
           navigate(`/blog/preview`);
         }}
       ></PreviewButton>
-      <SaveButton onClick={() => {}}></SaveButton>
+      <SaveButton
+        onClick={() => {
+          setSaveModalOpen(true);
+        }}
+      ></SaveButton>
     </>
   );
 };

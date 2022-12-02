@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.Site-bar {
+  background-color: white;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-syntax {
+  background-color: #23241f;
+  color: azure;
+  padding: 5px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -17,7 +17,26 @@ export const AddTextContent = ({
     <>
       <ReactQuill
         modules={{
-          toolbar: [['code-block']]  
+          toolbar: [
+            [{ header: [false, 1, 2, 3, 4, 5, 6] }, "bold", "italic"],
+            [
+              { list: "ordered" },
+              { list: "bullet" },
+              { indent: "-1" },
+              { indent: "+1" },
+            ],
+            ["blockquote", "code-block", "span-block", "link", "hr"],
+            [
+              { align: "" },
+              { align: "center" },
+              { align: "right" },
+              { align: "justify" },
+            ],
+          ],
+          // toolbar: [
+          //   ['code-block'],
+          //   [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }]
+          // ]
         }}
         theme="snow"
         value={value}
