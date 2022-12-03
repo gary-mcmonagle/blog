@@ -1,12 +1,10 @@
+import axios from "axios";
+import { adminApiPaths } from "./paths";
+
 export const createBlog = async (body: {
   templateId: string;
   content: any;
   urlSlug: string;
 }) => {
-  console.log("POSTING");
-  await sleep(3);
+  await axios.post(adminApiPaths.createBlog, body)
 };
-
-async function sleep(seconds: number) {
-  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
-}
