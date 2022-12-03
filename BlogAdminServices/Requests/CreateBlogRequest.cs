@@ -1,0 +1,10 @@
+namespace BlogAdminServices.Requests
+{
+    public class CreateBlogRequest
+    {
+        public string templateId {get; set;}
+
+        public string content {get; set;}
+
+    }
+}
