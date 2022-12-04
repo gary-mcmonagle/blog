@@ -12,7 +12,6 @@ import { BlogSaveModal } from "../BlogSaveModal";
 
 export const BasicTemplate = () => {
   const pageData = getPreviewContent();
-  console.log({ pageData });
   const templateId = BlogTemplates.find((t) => t.name === "basic")?.id!;
   const defaultContent =
     pageData?.templateId === templateId ? pageData?.content : "";

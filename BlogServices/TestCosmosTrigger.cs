@@ -34,7 +34,7 @@ namespace Blog.Pub
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             [CosmosDB(
-                databaseName: "ToDoItems",
+                databaseName: "ToDoList",
                 collectionName: "Items",
                 ConnectionStringSetting = "CosmosDBConnection",
                 Id = "{Query.id}",

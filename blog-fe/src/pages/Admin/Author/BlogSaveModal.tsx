@@ -35,6 +35,7 @@ export const BlogSaveModal = ({
   templateId,
 }: BlogSaveModalProps) => {
   const [showErrors, setShowErrors] = useState<boolean>(false);
+  const [blogTitle, setBlogTitle] = useState<string>("");
   const [urlSlug, setUrlSlug] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -47,6 +48,22 @@ export const BlogSaveModal = ({
     >
       <Box sx={style}>
         <Grid container>
+        <Grid item xs={12}>
+            <TextField
+              error={showErrors && !urlSlug}
+              autoFocus
+              margin="dense"
+              id="blogTitle"
+              label="Blog Title"
+              type="url"
+              value={blogTitle}
+              fullWidth
+              variant="standard"
+              onChange={(e) => {
+                setBlogTitle(e.target.value);
+              }}
+            />
+          </Grid>
           <Grid item xs={12}>
             <TextField
               error={showErrors && !urlSlug}
@@ -71,7 +88,7 @@ export const BlogSaveModal = ({
                   return;
                 }
                 setIsSubmitting(true);
-                createBlog({ templateId, content, urlSlug }).then(() => {
+                createBlog({ templateId, content, urlSlug, title: blogTitle }).then(() => {
                   setIsSubmitting(false);
                   onClose();
                 });

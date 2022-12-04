@@ -33,13 +33,13 @@ namespace BlogAdminServices
             
 
             string responseMessage = templateId;
-                // Add a JSON document to the output container.
             await documentsOut.AddAsync(new
             {
-                // create a random ID
                 id = System.Guid.NewGuid().ToString(),
                 templateId = data.templateId,
                 content = data.content,
+                urlSlug = data.urlSlug,
+                title = data.title
             });
 
             return new OkObjectResult(responseMessage);

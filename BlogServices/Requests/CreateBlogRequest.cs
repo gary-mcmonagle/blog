@@ -8,7 +8,5 @@ namespace BlogAdminServices.Requests
 
         public string urlSlug {get; set;}
 
-        public string title {get; set;}
-
     }
 }
