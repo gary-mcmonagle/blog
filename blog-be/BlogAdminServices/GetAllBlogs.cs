@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using BlogAdminServices.Responses;
+using BlogServicesShared;
 
 namespace BlogAdminServices
 {
@@ -24,7 +25,7 @@ namespace BlogAdminServices
                 ConnectionStringSetting = "CosmosDBConnection",
                 SqlQuery = "select * from blog"
             )]
-                IEnumerable<dynamic> toDoItems,
+                IEnumerable<BlogEntity> toDoItems,
             ILogger log
         )
         {
@@ -37,10 +38,10 @@ namespace BlogAdminServices
                     blog =>
                         new GetAllBlogResponse
                         {
-                            Content = blog.content,
-                            TemplateId = blog.templateId,
-                            Title = blog.title,
-                            UrlSlug = blog.urlSlug
+                            Content = blog.Content,
+                            TemplateId = blog.TemplateId,
+                            Title = blog.Title,
+                            UrlSlug = blog.UrlSlug
                         }
                 )
             );

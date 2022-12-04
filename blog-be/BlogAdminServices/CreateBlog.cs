@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using BlogAdminServices.Requests;
+using BlogServicesShared;
 
 namespace BlogAdminServices
 {
@@ -21,7 +22,7 @@ namespace BlogAdminServices
                 collectionName: "blog",
                 ConnectionStringSetting = "CosmosDBConnection"
             )]
-                IAsyncCollector<dynamic> documentsOut,
+                IAsyncCollector<BlogEntity> documentsOut,
             ILogger log
         )
         {
@@ -30,7 +31,7 @@ namespace BlogAdminServices
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             CreateBlogRequest data = JsonConvert.DeserializeObject<CreateBlogRequest>(requestBody);
 
-            var templateId = data.templateId;
+            var templateId = data.TemplateId;
             if (string.IsNullOrEmpty(templateId))
             {
                 return new BadRequestObjectResult("No template id");
@@ -38,16 +39,8 @@ namespace BlogAdminServices
 
             string responseMessage = templateId;
             await documentsOut.AddAsync(
-                new
-                {
-                    id = System.Guid.NewGuid().ToString(),
-                    templateId = data.templateId,
-                    content = data.content,
-                    urlSlug = data.urlSlug,
-                    title = data.title
-                }
+                new BlogEntity(data.Content, data.TemplateId, data.UrlSlug, data.Title)
             );
-
             return new OkObjectResult(responseMessage);
         }
     }

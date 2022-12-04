@@ -1,13 +1,19 @@
+using Newtonsoft.Json;
+
 namespace BlogAdminServices.Requests
 {
     public class CreateBlogRequest
     {
-        public string templateId { get; set; }
+        [JsonProperty("templateId")]
+        public string TemplateId { get; set; }
 
-        public string content { get; set; }
+        [JsonProperty("content")]
+        public dynamic Content { get; set; }
 
-        public string urlSlug { get; set; }
+        [JsonProperty("urlSlug")]
+        public string UrlSlug { get; set; }
 
-        public string title { get; set; }
+        [JsonProperty("title")]
+        public string Title { get; set; }
     }
 }
