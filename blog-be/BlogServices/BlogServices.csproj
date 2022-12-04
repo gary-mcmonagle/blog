@@ -16,4 +16,13 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlogServicesShared\BlogServicesShared.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+    <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
+    <Exec Command="dotnet csharpier ." />
+  </Target>
 </Project>

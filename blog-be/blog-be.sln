@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogAdminServices", "BlogAd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogServices", "BlogServices\BlogServices.csproj", "{F0D28333-2E0D-4FFF-AB8F-85C083DC49F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogServicesShared", "BlogServicesShared\BlogServicesShared.csproj", "{29053C9E-650A-4E8B-924D-61EB96AD6E80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F0D28333-2E0D-4FFF-AB8F-85C083DC49F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0D28333-2E0D-4FFF-AB8F-85C083DC49F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0D28333-2E0D-4FFF-AB8F-85C083DC49F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29053C9E-650A-4E8B-924D-61EB96AD6E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29053C9E-650A-4E8B-924D-61EB96AD6E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29053C9E-650A-4E8B-924D-61EB96AD6E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29053C9E-650A-4E8B-924D-61EB96AD6E80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
