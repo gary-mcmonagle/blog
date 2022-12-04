@@ -9,15 +9,23 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using BlogAdminServices.Responses;
 using BlogServicesShared;
+using AutoMapper;
+using BlogServicesShared.Responses;
 
 namespace BlogAdminServices
 {
-    public static class GetAllBlogs
+    public class GetAllBlogs
     {
+        private readonly IMapper _mapper;
+
+        public GetAllBlogs(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         [FunctionName("GetAllBlogs")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "blog")] HttpRequest req,
             [CosmosDB(
                 "blog",
@@ -33,18 +41,7 @@ namespace BlogAdminServices
 
             log.LogInformation(toDoItems.ToList().Count.ToString());
 
-            return new OkObjectResult(
-                toDoItems.Select(
-                    blog =>
-                        new GetAllBlogResponse
-                        {
-                            Content = blog.Content,
-                            TemplateId = blog.TemplateId,
-                            Title = blog.Title,
-                            UrlSlug = blog.UrlSlug
-                        }
-                )
-            );
+            return new OkObjectResult(toDoItems.Select(blog => _mapper.Map<GetBlogResponse>(blog)));
         }
     }
 }
