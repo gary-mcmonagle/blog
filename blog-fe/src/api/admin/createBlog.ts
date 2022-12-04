@@ -7,5 +7,5 @@ export const createBlog = async (body: {
   urlSlug: string;
   title: string;
 }) => {
-  await axios.post(adminApiPaths.createBlog, body)
+  await axios.post(adminApiPaths.createBlog, body);
 };

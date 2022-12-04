@@ -13,14 +13,14 @@ export const BlogPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(!isPreview);
   const [content, setContent] = useState<any>(null);
   useEffect(() => {
-    if(isPreview) {
-      setContent(getPreviewContent())
+    if (isPreview) {
+      setContent(getPreviewContent()?.content);
       return;
     }
     getBlog(blogSlug)
       .then((d) => setContent(d.content))
-      .then(() => setIsLoading(false))
-  })
+      .then(() => setIsLoading(false));
+  });
 
   const previewContent = getPreviewContent();
   const { templateId = "" } = previewContent || {};
@@ -46,9 +46,7 @@ export const BlogPage = () => {
           <ArrowBackIcon />
         </Fab>
       )}
-      {previewContent && (
-        <BasicBlog content={content}></BasicBlog>
-      )}
+      {previewContent && <BasicBlog content={content}></BasicBlog>}
     </>
   );
 };

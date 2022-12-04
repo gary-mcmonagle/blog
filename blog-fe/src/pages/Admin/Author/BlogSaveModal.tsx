@@ -48,7 +48,7 @@ export const BlogSaveModal = ({
     >
       <Box sx={style}>
         <Grid container>
-        <Grid item xs={12}>
+          <Grid item xs={12}>
             <TextField
               error={showErrors && !urlSlug}
               autoFocus
@@ -88,7 +88,12 @@ export const BlogSaveModal = ({
                   return;
                 }
                 setIsSubmitting(true);
-                createBlog({ templateId, content, urlSlug, title: blogTitle }).then(() => {
+                createBlog({
+                  templateId,
+                  content,
+                  urlSlug,
+                  title: blogTitle,
+                }).then(() => {
                   setIsSubmitting(false);
                   onClose();
                 });
