@@ -16,10 +16,14 @@ namespace BlogAdminServices
         [FunctionName("CreateBlog")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
-            [CosmosDB(databaseName: "blog", collectionName: "blog",
+            [CosmosDB(
+                databaseName: "blog",
+                collectionName: "blog",
                 ConnectionStringSetting = "CosmosDBConnection"
-            )]IAsyncCollector<dynamic> documentsOut,
-            ILogger log)
+            )]
+                IAsyncCollector<dynamic> documentsOut,
+            ILogger log
+        )
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -27,20 +31,22 @@ namespace BlogAdminServices
             CreateBlogRequest data = JsonConvert.DeserializeObject<CreateBlogRequest>(requestBody);
 
             var templateId = data.templateId;
-            if(string.IsNullOrEmpty(templateId)) {
+            if (string.IsNullOrEmpty(templateId))
+            {
                 return new BadRequestObjectResult("No template id");
             }
-            
 
             string responseMessage = templateId;
-            await documentsOut.AddAsync(new
-            {
-                id = System.Guid.NewGuid().ToString(),
-                templateId = data.templateId,
-                content = data.content,
-                urlSlug = data.urlSlug,
-                title = data.title
-            });
+            await documentsOut.AddAsync(
+                new
+                {
+                    id = System.Guid.NewGuid().ToString(),
+                    templateId = data.templateId,
+                    content = data.content,
+                    urlSlug = data.urlSlug,
+                    title = data.title
+                }
+            );
 
             return new OkObjectResult(responseMessage);
         }

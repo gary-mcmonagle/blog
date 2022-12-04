@@ -17,12 +17,17 @@ namespace BlogServices
     {
         [FunctionName("GetBlog")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "blog/{slug}")] HttpRequest req,
-             [CosmosDB("blog", "blog",
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "blog/{slug}")]
+                HttpRequest req,
+            [CosmosDB(
+                "blog",
+                "blog",
                 ConnectionStringSetting = "CosmosDBConnection",
-                SqlQuery = "select * from blog r where r.urlSlug = {slug}")]
+                SqlQuery = "select * from blog r where r.urlSlug = {slug}"
+            )]
                 IEnumerable<dynamic> toDoItems,
-            ILogger log)
+            ILogger log
+        )
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -36,7 +41,7 @@ namespace BlogServices
             }
             return new OkObjectResult(
                 new GetBlogResponse
-                { 
+                {
                     Content = blog.content,
                     TemplateId = blog.templateId,
                     Title = blog.title,

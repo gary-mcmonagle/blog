@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-
 namespace Blog.Pub
 {
     public class ToDoItemLookup
@@ -18,7 +17,7 @@ namespace Blog.Pub
         public string ToDoItemPartitionKeyValue { get; set; }
     }
 
-        public class ToDoItem
+    public class ToDoItem
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -28,18 +27,23 @@ namespace Blog.Pub
 
         public string Description { get; set; }
     }
+
     public static class TestCosmosTrigger
     {
         [FunctionName("TestCosmosTrigger")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]
+                HttpRequest req,
             [CosmosDB(
                 databaseName: "ToDoList",
                 collectionName: "Items",
                 ConnectionStringSetting = "CosmosDBConnection",
                 Id = "{Query.id}",
-                PartitionKey = "{Query.partitionKey}")] ToDoItem toDoItem,
-            ILogger log)
+                PartitionKey = "{Query.partitionKey}"
+            )]
+                ToDoItem toDoItem,
+            ILogger log
+        )
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
