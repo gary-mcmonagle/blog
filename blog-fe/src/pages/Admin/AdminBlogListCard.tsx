@@ -1,22 +1,21 @@
 import { Box, Card, CardActionArea, CardContent, styled, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { Blog } from "../../types/template.types"
 import { BasicBlog } from "../Blog/BasicBlog"
 
 type AdminBlogListCardProps = {
-    templateId: string
-    content: any
-    title: string
-    urlSlug: string
+    blog: Blog
 }
 const StyledCard = styled(Card)({
     // marginLeft: 10, 
     // marginRight: 10
 })
 export const AdminBlogListCard = ({
-    title,
-    content,
-    urlSlug
+    blog
 }: AdminBlogListCardProps) => {
+    const {
+        urlSlug, title
+    } = blog
     const navigate = useNavigate();
     return (
         <StyledCard variant="outlined">

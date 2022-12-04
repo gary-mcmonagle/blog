@@ -67,7 +67,7 @@ export const AdminPage = () => {
       {
         savedBlogs.map(blog => (
           <Grid item xs={4}>
-            <AdminBlogListCard {...blog}/>
+            <AdminBlogListCard blog={blog}/>
           </Grid>
         ))
       }

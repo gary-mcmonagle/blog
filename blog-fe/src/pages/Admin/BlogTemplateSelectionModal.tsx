@@ -23,10 +23,6 @@ type AddBlogTemplateSelectionProps = {
   templates: BlogTemplate[];
 };
 
-const TemplateSelectionRow = ({ template }: { template: BlogTemplate }) => {
-  return <Typography>{template.name}</Typography>;
-};
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -74,13 +70,6 @@ export const AddBlogTemplateSelectionModal = ({
                 ))
             }
         </List>
-        {/* <Grid container>
-          {templates.map((template) => (
-            <Grid item xs={12}>
-              <TemplateSelectionRow template={template} />
-            </Grid>
-          ))}
-        </Grid> */}
       </Box>
     </Modal>
   );
