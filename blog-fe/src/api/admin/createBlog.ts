@@ -1,11 +1,7 @@
 import axios from "axios";
+import { Blog } from "../../types/template.types";
 import { adminApiPaths } from "./paths";
 
-export const createBlog = async (body: {
-  templateId: string;
-  content: any;
-  urlSlug: string;
-  title: string;
-}) => {
+export const createBlog = async (body: Blog) => {
   await axios.post(adminApiPaths.createBlog, body);
 };

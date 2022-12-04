@@ -1,4 +1,11 @@
-import { Box, Button, CircularProgress, Grid, styled, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  styled,
+  Typography,
+} from "@mui/material";
 import { AddBlogTemplateSelection } from "../components/Admin/AddBlogTemplateSelection";
 import { BlogTemplates } from "../config";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -14,9 +21,8 @@ const AddButton = styled(Button)({
 
 const ActionBarContainer = styled(Box)({
   marginTop: 10,
-  marginBottom: 30
+  marginBottom: 30,
 });
-
 
 const ActionsBar = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -43,35 +49,37 @@ const ActionsBar = () => {
 };
 
 const Container = styled(Box)({
-  margin: 5
-}) 
+  margin: 5,
+});
 
 export const AdminPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [savedBlogs, setSavedBlogs] = useState<{content: any, templateId: string, title: string, urlSlug: string}[]>([])
+  const [savedBlogs, setSavedBlogs] = useState<
+    { content: any; templateId: string; title: string; urlSlug: string }[]
+  >([]);
 
   useEffect(() => {
     getAllBlogs()
-    .then(blogs => setSavedBlogs(blogs))
-    .then(() => setIsLoading(false))
+      .then((blogs) => setSavedBlogs(blogs))
+      .then(() => setIsLoading(false));
   }, []);
   return (
     <Container>
-    <Grid container spacing={2} justifyContent={"space-between"}>
-      <Grid item xs={12}>
-        <ActionsBar />
-      </Grid>
-      {
-           isLoading && <Grid item xs={12}><CircularProgress /></Grid>
-      }
-      {
-        savedBlogs.map(blog => (
-          <Grid item xs={4}>
-            <AdminBlogListCard {...blog}/>
+      <Grid container spacing={2} justifyContent={"space-between"}>
+        <Grid item xs={12}>
+          <ActionsBar />
+        </Grid>
+        {isLoading && (
+          <Grid item xs={12}>
+            <CircularProgress />
           </Grid>
-        ))
-      }
-    </Grid>
+        )}
+        {savedBlogs.map((blog) => (
+          <Grid item xs={4}>
+            <AdminBlogListCard blog={blog} />
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 };
