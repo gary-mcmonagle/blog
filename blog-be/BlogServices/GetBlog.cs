@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using BlogAdminServices.Responses;
+using BlogServicesShared;
 
 namespace BlogServices
 {
@@ -25,27 +26,27 @@ namespace BlogServices
                 ConnectionStringSetting = "CosmosDBConnection",
                 SqlQuery = "select * from blog r where r.urlSlug = {slug}"
             )]
-                IEnumerable<dynamic> toDoItems,
+                IEnumerable<BlogEntity> blogs,
             ILogger log
         )
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            log.LogInformation(toDoItems.ToList().Count.ToString());
+            log.LogInformation(blogs.ToList().Count.ToString());
 
-            var blog = toDoItems.ToList()[0];
-
-            foreach (dynamic toDoItem in toDoItems)
+            if (blogs.ToList().Count == 0)
             {
-                log.LogInformation(toDoItem.id as string);
+                return new NotFoundResult();
             }
+
+            var blog = blogs.ToList()[0];
             return new OkObjectResult(
                 new GetBlogResponse
                 {
-                    Content = blog.content,
-                    TemplateId = blog.templateId,
-                    Title = blog.title,
-                    UrlSlug = blog.urlSlug
+                    Content = blog.Content,
+                    TemplateId = blog.TemplateId,
+                    Title = blog.Title,
+                    UrlSlug = blog.UrlSlug
                 }
             );
         }
