@@ -1,16 +1,12 @@
 import {
   Box,
-  CircularProgress,
   Divider,
-  Grid,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   Modal,
-  TextField,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
@@ -39,7 +35,7 @@ export const AddBlogTemplateSelectionModal = ({
   onClose,
   templates,
 }: AddBlogTemplateSelectionProps) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Modal
       open={open}
@@ -49,26 +45,21 @@ export const AddBlogTemplateSelectionModal = ({
     >
       <Box sx={style}>
         <List>
-            {
-                templates.map(template => (
-                    <>
-                    <ListItem>
-                        <ListItemButton onClick={() => {
-                            navigate(`/admin/author/${template.id}`);
-                        }}>
-                            <ListItemIcon>
-                                {template.icon}
-                            </ListItemIcon>
-                            <ListItemText>
-                                {template.name}
-                            </ListItemText>
-                        </ListItemButton>
-                        
-                    </ListItem>
-                    <Divider />
-                    </>
-                ))
-            }
+          {templates.map((template) => (
+            <>
+              <ListItem>
+                <ListItemButton
+                  onClick={() => {
+                    navigate(`/admin/author/${template.id}`);
+                  }}
+                >
+                  <ListItemIcon>{template.icon}</ListItemIcon>
+                  <ListItemText>{template.name}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+            </>
+          ))}
         </List>
       </Box>
     </Modal>

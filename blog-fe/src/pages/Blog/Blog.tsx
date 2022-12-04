@@ -12,13 +12,16 @@ export const BlogPage = () => {
   const isPreview = blogSlug === "preview";
   const [isLoading, setIsLoading] = useState<boolean>(!isPreview);
   const [content, setContent] = useState<any>(null);
+
   useEffect(() => {
     if (isPreview) {
       setContent(getPreviewContent()?.content);
       return;
     }
     getBlog(blogSlug)
-      .then((d) => setContent(d.content))
+      .then((d) => {
+        if (d) setContent(d.content);
+      })
       .then(() => setIsLoading(false));
   });
 
@@ -29,6 +32,7 @@ export const BlogPage = () => {
   return (
     <>
       {isLoading && <CircularProgress />}
+      {!isLoading && !content && <p>Blog not found</p>}
       {isPreview && templateId && (
         <Fab
           style={{
