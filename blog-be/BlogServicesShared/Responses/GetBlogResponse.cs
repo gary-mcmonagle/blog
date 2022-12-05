@@ -8,5 +8,6 @@ namespace BlogServicesShared.Responses
         public string TemplateId { get; set; }
         public string UrlSlug { get; set; }
         public string Title { get; set; }
+        public string Idq { get; set; }
     }
 }
