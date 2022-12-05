@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -7,11 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Blog } from "../../types/template.types";
+import { Blog, CreatedBlog } from "../../types/template.types";
 import { BasicBlog } from "../Blog/BasicBlog";
-
+import EditIcon from '@mui/icons-material/Edit';
+import { saveBlogToSession } from "../../utils/previewStorage";
 type AdminBlogListCardProps = {
-  blog: Blog;
+  blog: CreatedBlog;
 };
 const StyledCard = styled(Card)({
   // marginLeft: 10,
@@ -31,6 +33,11 @@ export const AdminBlogListCard = ({ blog }: AdminBlogListCardProps) => {
           <Typography>{title}</Typography>
         </CardContent>
       </CardActionArea>
+      <Button onClick={() => {
+            saveBlogToSession({ ...blog, });
+            navigate(`/admin/author/${blog.templateId}`);
+        }}
+        ><EditIcon></EditIcon></Button>
     </StyledCard>
   );
 };

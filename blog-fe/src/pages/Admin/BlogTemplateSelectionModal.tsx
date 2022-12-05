@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { BlogTemplate } from "../../types/template.types";
+import { removeBlogFromSession } from "../../utils/previewStorage";
 
 type AddBlogTemplateSelectionProps = {
   open: boolean;
@@ -50,6 +51,7 @@ export const AddBlogTemplateSelectionModal = ({
               <ListItem>
                 <ListItemButton
                   onClick={() => {
+                    removeBlogFromSession()
                     navigate(`/admin/author/${template.id}`);
                   }}
                 >

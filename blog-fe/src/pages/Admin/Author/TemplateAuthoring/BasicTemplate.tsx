@@ -5,16 +5,15 @@ import { SaveButton } from "../../../../components/Admin/Authoring/SaveButton";
 import { BlogTemplates } from "../../../../config";
 import { useNavigate } from "react-router-dom";
 import {
-  getPreviewContent,
-  savePreviewContent,
+  getBlogFromSession,
+  saveBlogToSession,
 } from "../../../../utils/previewStorage";
 import { BlogSaveModal } from "../BlogSaveModal";
 
 export const BasicTemplate = () => {
-  const pageData = getPreviewContent();
+  const blogInSession = getBlogFromSession() as any;
   const templateId = BlogTemplates.find((t) => t.name === "basic")?.id!;
-  const defaultContent =
-    pageData?.templateId === templateId ? pageData?.content : "";
+  const defaultContent =  blogInSession?.templateId === templateId ? blogInSession?.content : "";
 
   const [content, setContent] = useState<string>(defaultContent);
   const [saveModalOpen, setSaveModalOpen] = useState<boolean>(false);
@@ -27,6 +26,7 @@ export const BasicTemplate = () => {
         templateId={templateId}
         open={saveModalOpen}
         onClose={() => setSaveModalOpen(false)}
+        savedBlogData={blogInSession.id ? {urlSlug: blogInSession.urlSlug, title: blogInSession.title, id: blogInSession.id} : undefined}
       ></BlogSaveModal>
       <AddTextContent
         onChange={(val) => {
@@ -36,7 +36,7 @@ export const BasicTemplate = () => {
       ></AddTextContent>
       <PreviewButton
         onClick={() => {
-          savePreviewContent({ content, templateId });
+          saveBlogToSession({ content, templateId, urlSlug: '', title: '',});
           navigate(`/blog/preview`);
         }}
       ></PreviewButton>

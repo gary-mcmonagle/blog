@@ -1,6 +1,6 @@
 import { CircularProgress, Fab } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPreviewContent } from "../../utils/previewStorage";
+import { getBlogFromSession } from "../../utils/previewStorage";
 import { BasicBlog } from "./BasicBlog";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
@@ -15,7 +15,7 @@ export const BlogPage = () => {
 
   useEffect(() => {
     if (isPreview) {
-      setContent(getPreviewContent()?.content);
+      setContent(getBlogFromSession()?.content);
       return;
     }
     getBlog(blogSlug)
@@ -25,7 +25,7 @@ export const BlogPage = () => {
       .then(() => setIsLoading(false));
   });
 
-  const previewContent = getPreviewContent();
+  const previewContent = getBlogFromSession();
   const { templateId = "" } = previewContent || {};
   const navigate = useNavigate();
 

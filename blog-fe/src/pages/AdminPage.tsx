@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getAllBlogs } from "../api/admin/getAllBlogs";
 import { AdminBlogListCard } from "./Admin/AdminBlogListCard";
+import { CreatedBlog } from "../types/template.types";
 
 const AddButton = styled(Button)({
   width: "100%",
@@ -54,9 +55,7 @@ const Container = styled(Box)({
 
 export const AdminPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [savedBlogs, setSavedBlogs] = useState<
-    { content: any; templateId: string; title: string; urlSlug: string }[]
-  >([]);
+  const [savedBlogs, setSavedBlogs] = useState<CreatedBlog[]>([]);
 
   useEffect(() => {
     getAllBlogs()

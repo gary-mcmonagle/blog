@@ -46,8 +46,16 @@ namespace BlogAdminServices
             }
             if (updated.Content != null)
             {
+                document.SetPropertyValue("content", updated.Content);
+            }
+            if (updated.UrlSlug != null)
+            {
+                document.SetPropertyValue("urlSlug", updated.UrlSlug);
+            }
+            if (updated.Title != null)
+            {
                 dynamic c = updated.Content;
-                document.SetPropertyValue("content", c);
+                document.SetPropertyValue("title", updated.Title);
             }
 
             await client.ReplaceDocumentAsync(document);

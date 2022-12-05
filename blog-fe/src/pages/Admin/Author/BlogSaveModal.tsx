@@ -1,3 +1,4 @@
+import { Update } from "@mui/icons-material";
 import {
   Box,
   CircularProgress,
@@ -9,12 +10,18 @@ import {
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { createBlog } from "../../../api/admin/createBlog";
+import { updateBlog } from "../../../api/admin/updateBlog";
 
 type BlogSaveModalProps = {
   open: boolean;
   onClose: () => void;
   content: any;
   templateId: string;
+  savedBlogData? :{
+    urlSlug: string
+    title: string
+    id: string
+  }
 };
 
 const style = {
@@ -33,11 +40,13 @@ export const BlogSaveModal = ({
   onClose,
   content,
   templateId,
+  savedBlogData
 }: BlogSaveModalProps) => {
   const [showErrors, setShowErrors] = useState<boolean>(false);
-  const [blogTitle, setBlogTitle] = useState<string>("");
-  const [urlSlug, setUrlSlug] = useState<string>("");
+  const [blogTitle, setBlogTitle] = useState<string>(savedBlogData?.title || '');
+  const [urlSlug, setUrlSlug] = useState<string>(savedBlogData?.urlSlug || "");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const isUpdate = !!savedBlogData;
 
   return (
     <Modal
@@ -88,6 +97,15 @@ export const BlogSaveModal = ({
                   return;
                 }
                 setIsSubmitting(true);
+                isUpdate ? updateBlog({
+                  templateId,
+                  content,
+                  urlSlug,
+                  title: blogTitle,
+                }, savedBlogData.id).then(() => {
+                  setIsSubmitting(false);
+                  onClose();
+                }) :
                 createBlog({
                   templateId,
                   content,
@@ -99,7 +117,7 @@ export const BlogSaveModal = ({
                 });
               }}
             >
-              Submit
+              {isUpdate ? "Update" : "Submit"}
             </Button>
           </Grid>
           <Grid item xs={6}>

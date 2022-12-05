@@ -1,15 +1,18 @@
-type SessionTemplateData = { templateId: string; content: any };
-export const getPreviewContent = () => {
-  const sessiomData = sessionStorage.getItem("previewData");
-  return sessiomData ? (JSON.parse(sessiomData) as SessionTemplateData) : null;
-};
+import { Blog, CreatedBlog } from "../types/template.types";
 
-export const savePreviewContent = ({
-  templateId,
-  content,
-}: SessionTemplateData) => {
+export const saveBlogToSession = (blog: Blog | CreatedBlog) => {
   sessionStorage.setItem(
-    "previewData",
-    JSON.stringify({ templateId, content })
+    "editBlog",
+    JSON.stringify(blog)
   );
-};
+}
+
+export const getBlogFromSession = () : Blog | CreatedBlog | null => {
+  const sessiomData = sessionStorage.getItem("editBlog");
+  return sessiomData ? (JSON.parse(sessiomData) as any) : null;
+}
+
+export const removeBlogFromSession = ()  => {
+  sessionStorage.removeItem("editBlog")
+}
+

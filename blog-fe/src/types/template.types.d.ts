@@ -10,3 +10,7 @@ export type Blog = {
   urlSlug: string;
   title: string;
 };
+
+export type CreatedBlog = Blog & {
+  id: string
+}
