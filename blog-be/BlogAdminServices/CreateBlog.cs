@@ -9,13 +9,22 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using BlogAdminServices.Requests;
 using BlogServicesShared;
+using AutoMapper;
+using BlogServicesShared.Responses;
 
 namespace BlogAdminServices
 {
-    public static class CreateBlog
+    public class CreateBlog
     {
+        private readonly IMapper _mapper;
+
+        public CreateBlog(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         [FunctionName("CreateBlog")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             [CosmosDB(
                 databaseName: "blog",
@@ -38,10 +47,9 @@ namespace BlogAdminServices
             }
 
             string responseMessage = templateId;
-            await documentsOut.AddAsync(
-                new BlogEntity(data.Content, data.TemplateId, data.UrlSlug, data.Title)
-            );
-            return new OkObjectResult(responseMessage);
+            BlogEntity entity = new(data.Content, data.TemplateId, data.UrlSlug, data.Title);
+            await documentsOut.AddAsync(entity);
+            return new OkObjectResult(_mapper.Map<GetBlogResponse>(entity));
         }
     }
 }

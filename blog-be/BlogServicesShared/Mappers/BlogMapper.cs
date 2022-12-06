@@ -9,6 +9,7 @@ namespace BlogServicesShared.Mappers
         public BlogMapper()
         {
             CreateMap<BlogEntity, GetBlogResponse>();
+            CreateMap<MetadataDto, BlogMetadataResponse>();
         }
     }
 }

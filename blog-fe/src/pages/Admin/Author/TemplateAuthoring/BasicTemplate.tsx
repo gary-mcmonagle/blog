@@ -26,7 +26,7 @@ export const BasicTemplate = () => {
         templateId={templateId}
         open={saveModalOpen}
         onClose={() => setSaveModalOpen(false)}
-        savedBlogData={blogInSession.id ? {urlSlug: blogInSession.urlSlug, title: blogInSession.title, id: blogInSession.id} : undefined}
+        savedBlogData={blogInSession?.id ? {urlSlug: blogInSession.urlSlug, title: blogInSession.title, id: blogInSession.id} : undefined}
       ></BlogSaveModal>
       <AddTextContent
         onChange={(val) => {
