@@ -11,6 +11,12 @@ export type Blog = {
   title: string;
 };
 
+export type BlogMetadata = {
+  id: string
+  urlSlug: string;
+  title: string;
+}
+
 export type CreatedBlog = Blog & {
   id: string
 }

@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { createBlog } from "../../../api/admin/createBlog";
+import { getMetadata } from "../../../api/admin/getMetadata";
 import { updateBlog } from "../../../api/admin/updateBlog";
 
 type BlogSaveModalProps = {
@@ -47,6 +48,41 @@ export const BlogSaveModal = ({
   const [urlSlug, setUrlSlug] = useState<string>(savedBlogData?.urlSlug || "");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const isUpdate = !!savedBlogData;
+
+  const isUniqueSlug = async (slug: string) : Promise<boolean> => {
+    const metadata =  await getMetadata();
+    return !metadata.map(m => m.urlSlug).includes(slug);
+  }
+
+  const submit = async () => {
+    if (!urlSlug) {
+      setShowErrors(true);
+      return;
+    }
+    setIsSubmitting(true);
+    const isUniqueSlugg = await isUniqueSlug(urlSlug);
+    if(!isUpdate && !isUniqueSlugg) {
+      throw new Error("not unique")
+    }
+    if(isUpdate) {
+      await updateBlog({
+        templateId,
+        content,
+        urlSlug,
+        title: blogTitle,
+      }, savedBlogData.id)
+    }
+    else  {
+      await createBlog({
+        templateId,
+        content,
+        urlSlug,
+        title: blogTitle,
+      })
+    }
+    setIsSubmitting(false);
+    onClose();
+  }
 
   return (
     <Modal
@@ -91,31 +127,7 @@ export const BlogSaveModal = ({
           </Grid>
           <Grid item xs={6}>
             <Button
-              onClick={() => {
-                if (!urlSlug) {
-                  setShowErrors(true);
-                  return;
-                }
-                setIsSubmitting(true);
-                isUpdate ? updateBlog({
-                  templateId,
-                  content,
-                  urlSlug,
-                  title: blogTitle,
-                }, savedBlogData.id).then(() => {
-                  setIsSubmitting(false);
-                  onClose();
-                }) :
-                createBlog({
-                  templateId,
-                  content,
-                  urlSlug,
-                  title: blogTitle,
-                }).then(() => {
-                  setIsSubmitting(false);
-                  onClose();
-                });
-              }}
+              onClick={() => submit()}
             >
               {isUpdate ? "Update" : "Submit"}
             </Button>
