@@ -15,7 +15,7 @@ import { updateBlog } from "../../../api/admin/updateBlog";
 
 type BlogSaveModalProps = {
   open: boolean;
-  onClose: () => void;
+  onClose: (createdPageUrl: string) => void;
   content: any;
   templateId: string;
   savedBlogData? :{
@@ -81,7 +81,7 @@ export const BlogSaveModal = ({
       })
     }
     setIsSubmitting(false);
-    onClose();
+    onClose(`/blog/${urlSlug}`);
   }
 
   return (
