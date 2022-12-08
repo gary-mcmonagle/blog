@@ -1,7 +1,7 @@
 export type GetAllBlogResponse = {
-    id: string
-    templateId: string;
-    content: any;
-    urlSlug: string;
-    title: string;
-}[]
+  id: string;
+  templateId: string;
+  content: any;
+  urlSlug: string;
+  title: string;
+}[];

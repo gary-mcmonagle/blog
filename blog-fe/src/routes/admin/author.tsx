@@ -1,3 +1,5 @@
+import { BlogSaveModal } from "../../features/author/blogSaveModal";
+
 export const Author = () => {
-    return <p>Author Page</p>
-}
+  return <BlogSaveModal open={true} onClose={() => {}}></BlogSaveModal>;
+};
