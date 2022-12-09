@@ -6,9 +6,9 @@ export const Author = () => {
   return (
     <BlogSaveModal
       content=""
-      templateId=""
+      templateId="3169155b-f9a1-4221-8a66-611d5ad4d50e"
       open={open}
-      onClose={() => {
+      onClose={(url) => {
         setOpen(false);
       }}
     ></BlogSaveModal>

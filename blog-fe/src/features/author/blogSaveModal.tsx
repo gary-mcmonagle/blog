@@ -46,8 +46,7 @@ const ActionsContainer = styled(Box)({
 });
 
 export const BlogSaveModal = (props: BlogSaveModalProps) => {
-  const { open, content, templateId } = props;
-  const isUpdate = !!props.updateBlogMetadata;
+  const { open, content, templateId, updateBlogMetadata } = props;
   const [blogMetadataFormFields, setBlogMetadataFormFields] = useState<{
     urlSlug?: string;
     title?: string;
@@ -55,26 +54,29 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
   }>({ ...props.updateBlogMetadata, publish: true });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showFormError, setShowFormError] = useState<boolean>(false);
+  
   const onSave = async () => {
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     const { urlSlug, title } = blogMetadataFormFields;
     setShowFormError(true);
-    // if(urlSlug && title) {
-    //     await saveBlog({urlSlug, title, content, templateId})
-    // }
-    // else {
-    //     setShowFormError(true);
-    // }
-
-    setIsLoading(false);
+    if(title && urlSlug) {
+        await saveBlog({ title, urlSlug, templateId, content }, updateBlogMetadata?.id);
+        setIsLoading(false);
+        onClose("someUrl")
+    }
+    else {
+        setIsLoading(false);
+        setShowFormError(true)
+    }
   };
+
+  const onClose = (redirect?: string) => {
+    props.onClose(redirect);
+  }
   return (
     <Modal
       open={open}
-      onClose={() => {
-        props.onClose("");
-      }}
+      onClose={() => onClose()}
     >
       <Container>
         <Typography>Save Blog</Typography>
