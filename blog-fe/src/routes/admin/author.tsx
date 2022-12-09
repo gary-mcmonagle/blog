@@ -1,5 +1,16 @@
+import { useState } from "react";
 import { BlogSaveModal } from "../../features/author/blogSaveModal";
 
 export const Author = () => {
-  return <BlogSaveModal open={true} onClose={() => {}}></BlogSaveModal>;
+  const [open, setOpen] = useState<boolean>(true);
+  return (
+    <BlogSaveModal
+      content=""
+      templateId=""
+      open={open}
+      onClose={() => {
+        setOpen(false);
+      }}
+    ></BlogSaveModal>
+  );
 };

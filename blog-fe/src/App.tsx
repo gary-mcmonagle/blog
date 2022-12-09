@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { routes } from "./routes";
 import "./App.css";
+import { theme } from "./theme";
+import { ThemeProvider } from "@mui/material";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => <RouterProvider router={router} />;
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <RouterProvider router={router} />
+  </ThemeProvider>
+);
 
 export default App;

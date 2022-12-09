@@ -5,8 +5,9 @@ import { AdminPage } from "./pages/AdminPage";
 import { AdminBlogAuthor } from "./pages/Admin/AdminBlogAuthor";
 import { BlogPage } from "./pages/Blog/Blog";
 import { SiteBar } from "./components/SiteBar";
-import { Box } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { height, styled } from "@mui/system";
+import { theme } from "./theme";
 
 const PageCotainer = styled(Box)({
   backgroundColor: "ghostwhite",
@@ -21,12 +22,14 @@ const ContentCtainer = styled(Box)({
 
 const Root = () => {
   return (
+    <ThemeProvider theme={theme}>
     <PageCotainer>
       <SiteBar />
       <ContentCtainer>
         <Outlet />
       </ContentCtainer>
     </PageCotainer>
+    </ThemeProvider>
   );
 };
 
