@@ -16,6 +16,32 @@ import { Modal } from "../../components/modal/modal";
 import { BlogContent } from "../../types/content";
 import { isValidUrlSlug } from "../../utils/isValidUrlSlug";
 import { saveBlog } from "../../utils/saveBlog";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const Container = styled(Box)({
+  padding: 10,
+});
+
+const schema = yup.object().shape({
+  urlSlug: yup
+    .string()
+    .test(
+      "url slug",
+      "Please enter valid url slug",
+      (val) => !!val && isValidUrlSlug(val)
+    )
+    .required(),
+  title: yup.string().required(),
+  publish: yup.bool().required(),
+});
+
+type BlogFormFields = {
+  title: string;
+  publish: boolean;
+  urlSlug: string;
+};
 
 export type BlogSaveModalProps = {
   open: boolean;
@@ -29,120 +55,71 @@ export type BlogSaveModalProps = {
   };
 };
 
-const TextFieldInput = (props: TextFieldProps) => {
-  return <TextField {...props} fullWidth margin="dense" variant="standard" />;
-};
-
-const Container = styled(Box)({
-  padding: 10,
-});
-
-const TextFieldContainer = styled(Box)({
-  padding: 10,
-});
-
-const ActionsContainer = styled(Box)({
-  padding: 10,
-});
-
 export const BlogSaveModal = (props: BlogSaveModalProps) => {
   const { open, content, templateId, updateBlogMetadata } = props;
-  const [blogMetadataFormFields, setBlogMetadataFormFields] = useState<{
-    urlSlug?: string;
-    title?: string;
-    publish: boolean;
-  }>({ ...props.updateBlogMetadata, publish: true });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<BlogFormFields>({
+    resolver: yupResolver(schema),
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showFormError, setShowFormError] = useState<boolean>(false);
-  
-  const onSave = async () => {
+  const onSubmitHandler = async (data: BlogFormFields) => {
     setIsLoading(true);
-    const { urlSlug, title } = blogMetadataFormFields;
-    setShowFormError(true);
-    if(title && urlSlug) {
-        await saveBlog({ title, urlSlug, templateId, content }, updateBlogMetadata?.id);
-        setIsLoading(false);
-        onClose("someUrl")
-    }
-    else {
-        setIsLoading(false);
-        setShowFormError(true)
-    }
+    const created = await saveBlog(
+      { ...data, templateId, content },
+      updateBlogMetadata?.id
+    );
+    setIsLoading(false);
+    reset();
+    props.onClose(`/blog/${created.urlSlug}`);
   };
-
-  const onClose = (redirect?: string) => {
-    props.onClose(redirect);
-  }
   return (
-    <Modal
-      open={open}
-      onClose={() => onClose()}
-    >
-      <Container>
-        <Typography>Save Blog</Typography>
-        <TextFieldContainer>
-          <Stack>
-            <TextFieldInput
-              error={showFormError && !blogMetadataFormFields.title}
-              label="Blog Title"
-              onChange={({ target }) => {
-                setBlogMetadataFormFields({
-                  ...blogMetadataFormFields,
-                  title: target.value,
-                });
-              }}
-            />
-            <TextFieldInput
-              error={
-                showFormError &&
-                (!blogMetadataFormFields.urlSlug ||
-                  !isValidUrlSlug(blogMetadataFormFields.urlSlug))
-              }
-              label="Blog Url Slug"
-              onChange={({ target }) => {
-                setBlogMetadataFormFields({
-                  ...blogMetadataFormFields,
-                  urlSlug: target.value,
-                });
-              }}
-            />
+    <Modal open={open} onClose={props.onClose}>
+      <form onSubmit={handleSubmit((values) => onSubmitHandler(values))}>
+        <Container>
+          <Typography align="center" variant="h6">
+            Save Blog
+          </Typography>
+          <Stack spacing={2}>
+            <TextField
+              {...register("urlSlug")}
+              label={(errors.urlSlug?.message as string) || "Url"}
+              error={!!errors.urlSlug}
+              required
+              fullWidth
+            ></TextField>
+            <TextField
+              {...register("title")}
+              label={(errors.title?.message as string) || "Title"}
+              error={!!errors.title}
+              required
+              fullWidth
+            ></TextField>
           </Stack>
-        </TextFieldContainer>
-        <ActionsContainer>
-          <Grid container>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    value={blogMetadataFormFields.publish}
-                    onChange={({ target }) => {
-                      setBlogMetadataFormFields({
-                        ...blogMetadataFormFields,
-                        publish: target.checked,
-                      });
-                    }}
-                  />
-                }
-                label="Publish"
-              />
+          <Box>
+            <Grid container>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox {...register("publish")} value={true} />}
+                  label="Publish"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button type="submit" variant="outlined">
+                  {isLoading ? (
+                    <CircularProgress size={24} />
+                  ) : (
+                    <Typography>Save</Typography>
+                  )}
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={onSave}
-                disabled={isLoading}
-              >
-                {!isLoading ? (
-                  <Typography>Save</Typography>
-                ) : (
-                  <CircularProgress size={24} />
-                )}
-              </Button>
-            </Grid>
-          </Grid>
-        </ActionsContainer>
-      </Container>
+          </Box>
+        </Container>
+      </form>
     </Modal>
   );
 };

@@ -25,7 +25,7 @@ namespace BlogAdminServices
 
         [FunctionName("CreateBlog")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "blog")] HttpRequest req,
             [CosmosDB(
                 databaseName: "blog",
                 collectionName: "blog",

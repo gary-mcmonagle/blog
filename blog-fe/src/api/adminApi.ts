@@ -19,7 +19,7 @@ export const createBlog = async (
   blog: CreateBlogRequest
 ): Promise<SaveBlogResponse> => {
   const { data } = await axios.post<SaveBlogResponse>(
-    `${adminApibasePath}/api/CreateBlog`,
+    `${adminApibasePath}/api/blog`,
     blog
   );
   return data;
