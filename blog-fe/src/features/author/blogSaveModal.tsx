@@ -5,7 +5,6 @@ import {
   Grid,
   Stack,
   TextField,
-  TextFieldProps,
   Typography,
   FormControlLabel,
   CircularProgress,
