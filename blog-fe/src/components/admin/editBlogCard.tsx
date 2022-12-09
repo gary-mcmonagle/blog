@@ -21,7 +21,13 @@ type EditBlogCardProps = {
   onPublish: () => void;
   onUnpublish: () => void;
 };
-export const EditBlogCard = ({ blog, onEdit, onDelete, onPublish, onUnpublish }: EditBlogCardProps) => {
+export const EditBlogCard = ({
+  blog,
+  onEdit,
+  onDelete,
+  onPublish,
+  onUnpublish,
+}: EditBlogCardProps) => {
   const published = true;
   const actions = [
     {
@@ -29,7 +35,7 @@ export const EditBlogCard = ({ blog, onEdit, onDelete, onPublish, onUnpublish }:
       action: onEdit,
     },
     {
-      icon: !published ? <TurnedInIcon/> : <TurnedInNotIcon/>,
+      icon: !published ? <TurnedInIcon /> : <TurnedInNotIcon />,
       action: !published ? onPublish : onUnpublish,
     },
     {
@@ -42,7 +48,6 @@ export const EditBlogCard = ({ blog, onEdit, onDelete, onPublish, onUnpublish }:
       <CardActionArea>
         <CardContent>
           <Typography>{blog.title}</Typography>
-          <Typography>{blog.urlSlug}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
