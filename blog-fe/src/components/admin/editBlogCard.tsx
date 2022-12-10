@@ -16,6 +16,7 @@ import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 
 type EditBlogCardProps = {
   blog: SaveBlogResponse;
+  onClick: () => void;
   onEdit: () => void;
   onDelete: () => void;
   onPublish: () => void;

@@ -21,3 +21,8 @@ export type UpdateBlogRequest = Partial<Blog> & {};
 export type SaveBlogResponse = Blog & {
   id: string;
 };
+
+export type TemplateResponse = {
+  id: string;
+  name: string;
+};

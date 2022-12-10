@@ -2,6 +2,7 @@ import {
   CreateBlogRequest,
   GetAllBlogResponse,
   SaveBlogResponse,
+  TemplateResponse,
   UpdateBlogRequest,
 } from "../types/api/admin";
 import axios from "axios";
@@ -32,6 +33,13 @@ export const updateBlog = async (
   const { data } = await axios.post<SaveBlogResponse>(
     `${adminApibasePath}/api/blog/${id}`,
     updateBlog
+  );
+  return data;
+};
+
+export const getAllTemplates = async (): Promise<TemplateResponse[]> => {
+  const { data } = await axios.get<TemplateResponse[]>(
+    `${adminApibasePath}/api/templates`
   );
   return data;
 };

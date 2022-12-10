@@ -9,37 +9,21 @@ export const BlogEditList = () => {
 
   const [blogs, setBlogs] = useState<SaveBlogResponse[]>([]);
   useEffect(() => {
-    getAllBlogs()
-        .then(blogs => {
-            setBlogs(blogs)
-            setIsLoading(false)
-        })
-  })
-  const BlogData: SaveBlogResponse[] = [
-    {
-      id: "test",
-      content: "blah blah",
-      title: "title",
-      urlSlug: "some-slug",
-      templateId: "1243",
-    },
-    {
-      id: "test",
-      content: "blah blah",
-      title: "title",
-      urlSlug: "some-slug",
-      templateId: "1243",
-    },
-  ];
+    getAllBlogs().then((blogs) => {
+      setBlogs(blogs);
+      setIsLoading(false);
+    });
+  }, []);
   return (
     <>
       {isLoading && <Skeleton variant="rounded" width={210} height={150} />}
       {!isLoading && (
         <Grid container spacing={3}>
-          {blogs.map((b) => (
-            <Grid item xs={4}>
+          {blogs.map((blog) => (
+            <Grid item xs={12} md={4}>
               <EditBlogCard
-                blog={b}
+                blog={blog}
+                onClick={() => {}}
                 onEdit={() => {}}
                 onDelete={() => {}}
                 onPublish={() => {}}
