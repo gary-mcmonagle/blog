@@ -19,8 +19,8 @@ export const BlogEditList = () => {
       {isLoading && <Skeleton variant="rounded" width={210} height={150} />}
       {!isLoading && (
         <Grid container spacing={3}>
-          {blogs.map((blog) => (
-            <Grid item xs={12} md={4}>
+          {blogs.map((blog, idx) => (
+            <Grid item xs={12} md={4} key={idx}>
               <EditBlogCard
                 blog={blog}
                 onClick={() => {}}

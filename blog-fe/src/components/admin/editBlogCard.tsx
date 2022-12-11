@@ -53,8 +53,8 @@ export const EditBlogCard = ({
       </CardActionArea>
       <CardActions>
         <Grid container spacing={1} justifyContent={"flex-end"}>
-          {actions.map((action) => (
-            <Grid item>
+          {actions.map((action, idx) => (
+            <Grid item key={idx}>
               <IconButton size="small" onClick={action.action}>
                 {action.icon}
               </IconButton>
