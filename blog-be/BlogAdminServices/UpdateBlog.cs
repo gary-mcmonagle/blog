@@ -38,7 +38,9 @@ namespace BlogAdminServices
                 .AsEnumerable()
                 .FirstOrDefault();
 
-            Console.WriteLine(document.Id);
+            Console.WriteLine("******");
+
+            Console.WriteLine(updated.Published);
 
             if (document == null)
             {
@@ -56,6 +58,19 @@ namespace BlogAdminServices
             {
                 dynamic c = updated.Content;
                 document.SetPropertyValue("title", updated.Title);
+            }
+
+            if (updated.Published != null)
+            {
+                document.SetPropertyValue("published", updated.Published);
+                if (updated.Published == true)
+                {
+                    document.SetPropertyValue("publishDate", DateTime.Now);
+                }
+                if (updated.Published == false)
+                {
+                    document.SetPropertyValue("publishDate", null);
+                }
             }
 
             await client.ReplaceDocumentAsync(document);

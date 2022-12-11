@@ -1,6 +1,6 @@
 import { Grid, Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getAllBlogs } from "../../api/adminApi";
+import { getAllBlogs, updateBlog } from "../../api/adminApi";
 import { EditBlogCard } from "../../components/admin/editBlogCard";
 import { SaveBlogResponse } from "../../types/api/admin";
 
@@ -26,8 +26,13 @@ export const BlogEditList = () => {
                 onClick={() => {}}
                 onEdit={() => {}}
                 onDelete={() => {}}
-                onPublish={() => {}}
-                onUnpublish={() => {}}
+                onPublish={async () => {
+                  console.log("here");
+                  await updateBlog({ published: true }, blog.id);
+                }}
+                onUnpublish={async () => {
+                  await updateBlog({ published: false }, blog.id);
+                }}
               />
             </Grid>
           ))}

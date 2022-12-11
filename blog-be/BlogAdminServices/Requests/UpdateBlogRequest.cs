@@ -13,5 +13,8 @@ namespace BlogAdminServices.Requests
 
         [JsonProperty("title")]
         public string? Title { get; set; }
+
+        [JsonProperty("published")]
+        public bool? Published { get; set; }
     }
 }

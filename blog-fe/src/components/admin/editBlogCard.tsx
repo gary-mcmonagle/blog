@@ -36,7 +36,7 @@ export const EditBlogCard = ({
     },
     {
       icon: blog.published ? <TurnedInIcon /> : <TurnedInNotIcon />,
-      action: blog.published ? onPublish : onUnpublish,
+      action: blog.published ? onUnpublish : onPublish,
     },
     {
       icon: <DeleteIcon />,
@@ -68,7 +68,7 @@ export const EditBlogCard = ({
         <Grid container spacing={1} justifyContent={"flex-end"}>
           {actions.map((action, idx) => (
             <Grid item key={idx}>
-              <IconButton size="small" onClick={action.action}>
+              <IconButton size="small" onClick={() => action.action()}>
                 {action.icon}
               </IconButton>
             </Grid>
