@@ -7,7 +7,5 @@ import { BlogSaveModal } from "../../features/author/blogSaveModal";
 export const Author = () => {
   const [open, setOpen] = useState<boolean>(true);
   const naviate = useNavigate();
-  return (
-    <BasicAuthorPage />
-  );
+  return <BasicAuthorPage />;
 };

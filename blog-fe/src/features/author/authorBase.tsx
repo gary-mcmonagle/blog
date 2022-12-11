@@ -52,10 +52,10 @@ const SaveButton = ({
 );
 
 type AuthorBaseProps = {
-  content: BlogContent | null
-  templateId: string | null
+  content: BlogContent | null;
+  templateId: string | null;
 };
-export const AuthorBase = ({content, templateId} : AuthorBaseProps) => {
+export const AuthorBase = ({ content, templateId }: AuthorBaseProps) => {
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const navigate = useNavigate();
   return (

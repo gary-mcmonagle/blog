@@ -6,12 +6,21 @@ namespace BlogServicesShared
 {
     public class BlogEntity : BaseEntity
     {
-        public BlogEntity(dynamic content, string templateId, string urlSlug, string title)
+        public BlogEntity(
+            dynamic content,
+            string templateId,
+            string urlSlug,
+            string title,
+            bool published,
+            DateTime? publishDate
+        )
         {
             Content = content;
             TemplateId = templateId;
             UrlSlug = urlSlug;
             Title = title;
+            Published = published;
+            PublishDate = publishDate;
         }
 
         [JsonProperty("content")]
@@ -25,5 +34,11 @@ namespace BlogServicesShared
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("published")]
+        public bool Published { get; set; }
+
+        [JsonProperty("publishDate")]
+        public DateTime? PublishDate { get; set; }
     }
 }

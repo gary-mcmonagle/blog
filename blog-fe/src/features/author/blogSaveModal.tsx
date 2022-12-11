@@ -68,7 +68,7 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
   const onSubmitHandler = async (data: BlogFormFields) => {
     setIsLoading(true);
     const created = await saveBlog(
-      { ...data, templateId, content },
+      { ...data, templateId, content, published: data.publish },
       updateBlogMetadata?.id
     );
     setIsLoading(false);

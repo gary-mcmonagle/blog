@@ -46,8 +46,18 @@ namespace BlogAdminServices
                 return new BadRequestObjectResult("No template id");
             }
 
+            DateTime? publishDate = data.Published ? DateTime.Now : null;
+
             string responseMessage = templateId;
-            BlogEntity entity = new(data.Content, data.TemplateId, data.UrlSlug, data.Title);
+            BlogEntity entity =
+                new(
+                    data.Content,
+                    data.TemplateId,
+                    data.UrlSlug,
+                    data.Title,
+                    data.Published,
+                    publishDate
+                );
             await documentsOut.AddAsync(entity);
             return new OkObjectResult(_mapper.Map<GetBlogResponse>(entity));
         }

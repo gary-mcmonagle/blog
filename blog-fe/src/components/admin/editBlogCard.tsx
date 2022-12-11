@@ -29,15 +29,14 @@ export const EditBlogCard = ({
   onPublish,
   onUnpublish,
 }: EditBlogCardProps) => {
-  const published = true;
   const actions = [
     {
       icon: <EditIcon />,
       action: onEdit,
     },
     {
-      icon: !published ? <TurnedInIcon /> : <TurnedInNotIcon />,
-      action: !published ? onPublish : onUnpublish,
+      icon: blog.published ? <TurnedInIcon /> : <TurnedInNotIcon />,
+      action: blog.published ? onPublish : onUnpublish,
     },
     {
       icon: <DeleteIcon />,
@@ -49,6 +48,20 @@ export const EditBlogCard = ({
       <CardActionArea>
         <CardContent>
           <Typography>{blog.title}</Typography>
+          <Typography>
+            Created: {new Date(blog.createdAt).toLocaleDateString("en-GB")}
+          </Typography>
+          {blog.updatedAt && (
+            <Typography>
+              Updated: {new Date(blog.updatedAt).toLocaleDateString("en-GB")}
+            </Typography>
+          )}
+          {blog.publishDate && (
+            <Typography>
+              Published:{" "}
+              {new Date(blog.publishDate).toLocaleDateString("en-GB")}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
       <CardActions>

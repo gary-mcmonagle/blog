@@ -5,6 +5,7 @@ export type Blog = {
   content: any;
   urlSlug: string;
   title: string;
+  published: boolean;
 };
 
 export type GetAllBlogResponse = Blog &
@@ -20,6 +21,9 @@ export type UpdateBlogRequest = Partial<Blog> & {};
 
 export type SaveBlogResponse = Blog & {
   id: string;
+  createdAt: string;
+  updatedAt?: string;
+  publishDate?: string;
 };
 
 export type TemplateResponse = {
