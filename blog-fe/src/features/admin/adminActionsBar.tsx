@@ -7,8 +7,8 @@ import { getAllTemplates } from "../../api/adminApi";
 import { borderColor, Box } from "@mui/system";
 import { grey, yellow } from "@mui/material/colors";
 import { BorderStyle } from "@mui/icons-material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useNavigate } from "react-router-dom";
 
 const ActionsContainer = styled(Box)({
@@ -28,37 +28,36 @@ export const AdminActionsBar = () => {
   }, []);
   return (
     <Paper elevation={2}>
-    <ActionsContainer
-    >
-      <Button
-        ref={createButtonRef}
-        variant={"outlined"}
-        onClick={() => {
-          setCreateModalOpen(true);
-          setAnchorEl(createButtonRef.current);
-        }}
-      >
-        <AddCircleIcon/>
-        <ArrowDropDownIcon />
-      </Button>
-      <Popover
-        open={createModalOpen}
-        anchorEl={anchorEl}
-        onClose={() => {
-          setCreateModalOpen(false);
-          setAnchorEl(null);
-        }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-      >
-        <CreateBlogTemplateSelection
-          templates={templates}
-          onClick={(t) => navigate(`/admin/author/${t.id}`)}
-        />
-      </Popover>
-    </ActionsContainer>
+      <ActionsContainer>
+        <Button
+          ref={createButtonRef}
+          variant={"outlined"}
+          onClick={() => {
+            setCreateModalOpen(true);
+            setAnchorEl(createButtonRef.current);
+          }}
+        >
+          <AddCircleIcon />
+          <ArrowDropDownIcon />
+        </Button>
+        <Popover
+          open={createModalOpen}
+          anchorEl={anchorEl}
+          onClose={() => {
+            setCreateModalOpen(false);
+            setAnchorEl(null);
+          }}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          <CreateBlogTemplateSelection
+            templates={templates}
+            onClick={(t) => navigate(`/admin/author/${t.id}`)}
+          />
+        </Popover>
+      </ActionsContainer>
     </Paper>
   );
 };

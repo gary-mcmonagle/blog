@@ -76,7 +76,13 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
     props.onClose(`/blog/${created.urlSlug}`);
   };
   return (
-    <Modal open={open} onClose={props.onClose}>
+    <Modal
+      open={open}
+      onClose={() => {
+        reset();
+        props.onClose();
+      }}
+    >
       <form onSubmit={handleSubmit((values) => onSubmitHandler(values))}>
         <Container>
           <Typography align="center" variant="h6">
