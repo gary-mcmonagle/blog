@@ -8,7 +8,12 @@ export const DarkModeContext = React.createContext<{
 export const DarkModeProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [darkMode, setDarkMode] = React.useState<boolean>(false);
+const systemPref = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const [darkMode, setDarkMode] = React.useState<boolean>(systemPref);
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const isDark = event.matches;
+    setDarkMode(isDark)
+});
   return (
     <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
       {children}
