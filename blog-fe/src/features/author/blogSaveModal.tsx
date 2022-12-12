@@ -8,6 +8,7 @@ import {
   Typography,
   FormControlLabel,
   CircularProgress,
+  Paper,
 } from "@mui/material";
 import { styled } from "@mui/material";
 import { useState } from "react";
@@ -83,48 +84,50 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
         props.onClose();
       }}
     >
-      <form onSubmit={handleSubmit((values) => onSubmitHandler(values))}>
-        <Container>
-          <Typography align="center" variant="h6">
-            Save Blog
-          </Typography>
-          <Stack spacing={2}>
-            <TextField
-              {...register("urlSlug")}
-              label={(errors.urlSlug?.message as string) || "Url"}
-              error={!!errors.urlSlug}
-              required
-              fullWidth
-            ></TextField>
-            <TextField
-              {...register("title")}
-              label={(errors.title?.message as string) || "Title"}
-              error={!!errors.title}
-              required
-              fullWidth
-            ></TextField>
-          </Stack>
-          <Box>
-            <Grid container>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox {...register("publish")} value={true} />}
-                  label="Publish"
-                />
+      <Paper>
+        <form onSubmit={handleSubmit((values) => onSubmitHandler(values))}>
+          <Container>
+            <Typography align="center" variant="h6">
+              Save Blog
+            </Typography>
+            <Stack spacing={2}>
+              <TextField
+                {...register("urlSlug")}
+                label={(errors.urlSlug?.message as string) || "Url"}
+                error={!!errors.urlSlug}
+                required
+                fullWidth
+              ></TextField>
+              <TextField
+                {...register("title")}
+                label={(errors.title?.message as string) || "Title"}
+                error={!!errors.title}
+                required
+                fullWidth
+              ></TextField>
+            </Stack>
+            <Box>
+              <Grid container>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox {...register("publish")} value={true} />}
+                    label="Publish"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button type="submit" variant="outlined">
+                    {isLoading ? (
+                      <CircularProgress size={24} />
+                    ) : (
+                      <Typography>Save</Typography>
+                    )}
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" variant="outlined">
-                  {isLoading ? (
-                    <CircularProgress size={24} />
-                  ) : (
-                    <Typography>Save</Typography>
-                  )}
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </Container>
-      </form>
+            </Box>
+          </Container>
+        </form>
+      </Paper>
     </Modal>
   );
 };

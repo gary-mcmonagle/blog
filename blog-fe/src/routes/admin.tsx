@@ -4,7 +4,7 @@ import { AdminActionsBar } from "../features/admin/adminActionsBar";
 
 export const Admin = () => {
   return (
-    <Paper style={{ height: "100vh" }}>
+    <Paper style={{ height: "100%" }}>
       <div style={{ marginBottom: 20 }}>
         <AdminActionsBar />
       </div>

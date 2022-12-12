@@ -1,5 +1,5 @@
-import { Grid, Skeleton } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Grid, Paper, Skeleton } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { getAllBlogs, updateBlog } from "../../api/adminApi";
 import { EditBlogCard } from "../../components/admin/editBlogCard";
 import { SaveBlogResponse } from "../../types/api/admin";
@@ -15,29 +15,56 @@ export const BlogEditList = () => {
     });
   }, []);
   return (
-    <>
+    <Paper>
       {isLoading && <Skeleton variant="rounded" width={210} height={150} />}
       {!isLoading && (
         <Grid container spacing={3}>
-          {blogs.map((blog, idx) => (
-            <Grid item xs={12} md={4} key={idx}>
-              <EditBlogCard
-                blog={blog}
-                onClick={() => {}}
-                onEdit={() => {}}
-                onDelete={() => {}}
-                onPublish={async () => {
-                  console.log("here");
-                  await updateBlog({ published: true }, blog.id);
-                }}
-                onUnpublish={async () => {
-                  await updateBlog({ published: false }, blog.id);
-                }}
-              />
-            </Grid>
-          ))}
+          {blogs
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            )
+            .map((blog, idx) => (
+              <Grid item xs={12} md={4} key={idx}>
+                <EditBlogCard
+                  blog={blog}
+                  onClick={() => {}}
+                  onEdit={() => {}}
+                  onDelete={() => {}}
+                  onPublish={async () => {
+                    const updated = await updateBlog(
+                      { published: true },
+                      blog.id
+                    );
+                    const updatedBlogs = blogs.map((b) => {
+                      if (b.id === blog.id) {
+                        b = updated;
+                      }
+                      return b;
+                    });
+                    setBlogs(updatedBlogs);
+                    return true;
+                  }}
+                  onUnpublish={async () => {
+                    const updated = await updateBlog(
+                      { published: false },
+                      blog.id
+                    );
+                    const updatedBlogs = blogs.map((b) => {
+                      if (b.id === blog.id) {
+                        b = updated;
+                      }
+                      return b;
+                    });
+                    setBlogs(updatedBlogs);
+                    return true;
+                  }}
+                />
+              </Grid>
+            ))}
         </Grid>
       )}
-    </>
+    </Paper>
   );
 };

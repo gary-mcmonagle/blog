@@ -12,13 +12,22 @@ using BlogServicesShared;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Documents.Client;
 using System.Linq;
+using AutoMapper;
+using BlogServicesShared.Responses;
 
 namespace BlogAdminServices
 {
-    public static class UpdateBlog
+    public class UpdateBlog
     {
+        private readonly IMapper _mapper;
+
+        public UpdateBlog(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         [FunctionName("UpdateBlog")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "blog/{blogId}")]
                 HttpRequest req,
             string blogId,
@@ -75,7 +84,17 @@ namespace BlogAdminServices
 
             await client.ReplaceDocumentAsync(document);
 
-            return new OkObjectResult("TEST");
+            BlogEntity e = new BlogEntity(
+                document.GetPropertyValue<dynamic>("content"),
+                document.GetPropertyValue<string>("templateId"),
+                document.GetPropertyValue<string>("urlSlug"),
+                document.GetPropertyValue<string>("title"),
+                document.GetPropertyValue<bool>("published"),
+                document.GetPropertyValue<DateTime?>("publishDate")
+            );
+            e.Id = Guid.Parse(document.Id);
+
+            return new OkObjectResult(_mapper.Map<GetBlogResponse>(e));
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Box, Modal as MuiModal } from "@mui/material";
+import { Box, Modal as MuiModal, Paper } from "@mui/material";
 import { styled } from "@mui/system";
 
 export type ModalProps = {
@@ -24,7 +24,9 @@ export const Modal = ({
 }: React.PropsWithChildren<ModalProps>) => {
   return (
     <MuiModal open={open} onClose={onClose}>
-      <ContentContainer>{children}</ContentContainer>
+      <Paper>
+        <ContentContainer>{children}</ContentContainer>
+      </Paper>
     </MuiModal>
   );
 };
