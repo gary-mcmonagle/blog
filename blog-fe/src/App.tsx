@@ -4,7 +4,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { routes } from "./routes";
 import "./App.css";
 import { theme } from "./theme";
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "./ThemeProvider";
+import { DarkModeProvider } from "./contexts/DarkModeContext";
 
 const router = createBrowserRouter([
   {
@@ -19,9 +20,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <RouterProvider router={router} />
-  </ThemeProvider>
+  <DarkModeProvider>
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </DarkModeProvider>
 );
 
 export default App;
