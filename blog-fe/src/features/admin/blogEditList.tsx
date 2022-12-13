@@ -1,4 +1,4 @@
-import { Grid, Paper, Skeleton } from "@mui/material";
+import { Grid, LinearProgress, Paper, Skeleton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { getAllBlogs, updateBlog } from "../../api/adminApi";
 import { EditBlogCard } from "../../components/admin/editBlogCard";
@@ -16,7 +16,7 @@ export const BlogEditList = () => {
   }, []);
   return (
     <Paper>
-      {isLoading && <Skeleton variant="rounded" width={210} height={150} />}
+      {isLoading && <LinearProgress />}
       {!isLoading && (
         <Grid container spacing={3}>
           {blogs

@@ -3,7 +3,7 @@ import { Admin } from "./routes/admin";
 import { Author } from "./routes/admin/author";
 export const routes: RouteObject[] = [
   {
-    path: "admin/author",
+    path: "admin/author/:templateName",
     element: <Author></Author>,
   },
   {

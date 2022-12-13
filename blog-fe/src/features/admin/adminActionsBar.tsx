@@ -54,7 +54,7 @@ export const AdminActionsBar = () => {
         >
           <CreateBlogTemplateSelection
             templates={templates}
-            onClick={(t) => navigate(`/admin/author/${t.id}`)}
+            onClick={(t) => navigate(`/admin/author/${t.name}`)}
           />
         </Popover>
       </ActionsContainer>

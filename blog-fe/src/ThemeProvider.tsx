@@ -19,11 +19,11 @@ declare module "@mui/material/styles" {
 }
 
 export const ThemeProvider = ({ children }: React.PropsWithChildren<{}>) => {
-    const { darkMode } = useContext(DarkModeContext) || {};
+  const { darkMode } = useContext(DarkModeContext) || {};
 
   const theme = createTheme({
     palette: {
-        mode: darkMode ?  "dark" : "light",
+      mode: darkMode ? "dark" : "light",
     },
   });
   return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;

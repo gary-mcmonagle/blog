@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import { BasicAuthor } from "../../components/admin/author/basic";
 import { AuthorBase } from "./authorBase";
 
 export const BasicAuthorPage = () => {
@@ -8,11 +9,11 @@ export const BasicAuthorPage = () => {
   return (
     <>
       <AuthorBase content={content} templateId={templateId} />
-      <TextField
+      <BasicAuthor
         onChange={(e) => {
-          setContent(e.target.value);
+          setContent(e);
         }}
-      ></TextField>
+      ></BasicAuthor>
     </>
   );
 };

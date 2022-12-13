@@ -1,4 +1,4 @@
-import { Fab } from "@mui/material";
+import { Fab, Paper } from "@mui/material";
 import PreviewIcon from "@mui/icons-material/Preview";
 import SaveIcon from "@mui/icons-material/Save";
 import { BlogSaveModal } from "./blogSaveModal";
@@ -59,7 +59,7 @@ export const AuthorBase = ({ content, templateId }: AuthorBaseProps) => {
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const navigate = useNavigate();
   return (
-    <>
+    <Paper>
       <BlogSaveModal
         open={saveModalOpen}
         onClose={(redirectUrl) => {
@@ -76,6 +76,6 @@ export const AuthorBase = ({ content, templateId }: AuthorBaseProps) => {
           setSaveModalOpen(true);
         }}
       />
-    </>
+    </Paper>
   );
 };
