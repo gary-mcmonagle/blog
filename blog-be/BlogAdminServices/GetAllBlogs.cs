@@ -31,7 +31,7 @@ namespace BlogAdminServices
                 "blog",
                 "blog",
                 ConnectionStringSetting = "CosmosDBConnection",
-                SqlQuery = "select * from blog"
+                SqlQuery = "select * from blog where not blog.deleted"
             )]
                 IEnumerable<BlogEntity> toDoItems,
             ILogger log

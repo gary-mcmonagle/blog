@@ -1,6 +1,6 @@
 import { Grid, LinearProgress, Paper, Skeleton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { getAllBlogs, updateBlog } from "../../api/adminApi";
+import { deleteBlog, getAllBlogs, updateBlog } from "../../api/adminApi";
 import { EditBlogCard } from "../../components/admin/editBlogCard";
 import { SaveBlogResponse } from "../../types/api/admin";
 
@@ -14,6 +14,15 @@ export const BlogEditList = () => {
       setIsLoading(false);
     });
   }, []);
+  const updateBlogInList = (updated: SaveBlogResponse) => {
+    const updatedBlogs = blogs.map((b) => {
+      if (b.id === updated.id) {
+        b = updated;
+      }
+      return b;
+    });
+    setBlogs(updatedBlogs);
+  };
   return (
     <Paper>
       {isLoading && <LinearProgress />}
@@ -31,19 +40,20 @@ export const BlogEditList = () => {
                   blog={blog}
                   onClick={() => {}}
                   onEdit={() => {}}
-                  onDelete={() => {}}
+                  onDelete={async() => {
+                    let conf = window.confirm("R U Sure ?")
+                    if(conf) {
+                      await deleteBlog(blog.id);
+                      setBlogs(blogs.filter(b => b.id !== blog.id))
+                    }
+                    return true;
+                  }}
                   onPublish={async () => {
                     const updated = await updateBlog(
                       { published: true },
                       blog.id
                     );
-                    const updatedBlogs = blogs.map((b) => {
-                      if (b.id === blog.id) {
-                        b = updated;
-                      }
-                      return b;
-                    });
-                    setBlogs(updatedBlogs);
+                    updateBlogInList(updated)
                     return true;
                   }}
                   onUnpublish={async () => {
@@ -51,13 +61,7 @@ export const BlogEditList = () => {
                       { published: false },
                       blog.id
                     );
-                    const updatedBlogs = blogs.map((b) => {
-                      if (b.id === blog.id) {
-                        b = updated;
-                      }
-                      return b;
-                    });
-                    setBlogs(updatedBlogs);
+                    updateBlogInList(updated)
                     return true;
                   }}
                 />

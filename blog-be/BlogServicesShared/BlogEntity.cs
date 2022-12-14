@@ -21,6 +21,7 @@ namespace BlogServicesShared
             Title = title;
             Published = published;
             PublishDate = publishDate;
+            Deleted = false;
         }
 
         [JsonProperty("content")]
@@ -37,6 +38,9 @@ namespace BlogServicesShared
 
         [JsonProperty("published")]
         public bool Published { get; set; }
+
+        [JsonProperty("deleted")]
+        public bool Deleted { get; set; }
 
         [JsonProperty("publishDate")]
         public DateTime? PublishDate { get; set; }
