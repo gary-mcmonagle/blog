@@ -1,3 +1,1 @@
-export const Confirmation = () => {
-    
-}
+export const Confirmation = () => {};

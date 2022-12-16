@@ -30,6 +30,7 @@ export const EditBlogCard = ({
   onDelete,
   onPublish,
   onUnpublish,
+  onClick
 }: EditBlogCardProps) => {
   const [loading, setLoading] = useState<{ [k in ActionType]: boolean }>({
     publish: false,
@@ -72,7 +73,7 @@ export const EditBlogCard = ({
   ];
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea onClick={onClick}>
         <CardContent>
           <Typography>{blog.title}</Typography>
           <Typography>

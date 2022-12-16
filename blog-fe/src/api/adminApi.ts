@@ -37,12 +37,8 @@ export const updateBlog = async (
   return data;
 };
 
-export const deleteBlog = async (
-  id: string
-): Promise<void> => {
-  const { data } = await axios.delete(
-    `${adminApibasePath}/api/blog/${id}`,
-  );
+export const deleteBlog = async (id: string): Promise<void> => {
+  const { data } = await axios.delete(`${adminApibasePath}/api/blog/${id}`);
   return data;
 };
 

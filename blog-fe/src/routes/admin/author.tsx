@@ -17,5 +17,5 @@ export const Author = () => {
         return <Typography>Not found</Typography>;
     }
   };
-  return <Paper style={{minHeight: "100vh"}}>{getTemplate()}</Paper>;
+  return <Paper style={{ minHeight: "100vh" }}>{getTemplate()}</Paper>;
 };

@@ -1,12 +1,13 @@
 import { Grid, LinearProgress, Paper, Skeleton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { deleteBlog, getAllBlogs, updateBlog } from "../../api/adminApi";
 import { EditBlogCard } from "../../components/admin/editBlogCard";
 import { SaveBlogResponse } from "../../types/api/admin";
 
 export const BlogEditList = () => {
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const [blogs, setBlogs] = useState<SaveBlogResponse[]>([]);
   useEffect(() => {
     getAllBlogs().then((blogs) => {
@@ -38,13 +39,15 @@ export const BlogEditList = () => {
               <Grid item xs={12} md={4} key={idx}>
                 <EditBlogCard
                   blog={blog}
-                  onClick={() => {}}
+                  onClick={() => {
+                    navigate(`/blog/${blog.urlSlug}`)
+                  }}
                   onEdit={() => {}}
-                  onDelete={async() => {
-                    let conf = window.confirm("R U Sure ?")
-                    if(conf) {
+                  onDelete={async () => {
+                    let conf = window.confirm("R U Sure ?");
+                    if (conf) {
                       await deleteBlog(blog.id);
-                      setBlogs(blogs.filter(b => b.id !== blog.id))
+                      setBlogs(blogs.filter((b) => b.id !== blog.id));
                     }
                     return true;
                   }}
@@ -53,7 +56,7 @@ export const BlogEditList = () => {
                       { published: true },
                       blog.id
                     );
-                    updateBlogInList(updated)
+                    updateBlogInList(updated);
                     return true;
                   }}
                   onUnpublish={async () => {
@@ -61,7 +64,7 @@ export const BlogEditList = () => {
                       { published: false },
                       blog.id
                     );
-                    updateBlogInList(updated)
+                    updateBlogInList(updated);
                     return true;
                   }}
                 />
