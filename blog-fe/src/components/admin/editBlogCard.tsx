@@ -30,7 +30,7 @@ export const EditBlogCard = ({
   onDelete,
   onPublish,
   onUnpublish,
-  onClick
+  onClick,
 }: EditBlogCardProps) => {
   const [loading, setLoading] = useState<{ [k in ActionType]: boolean }>({
     publish: false,

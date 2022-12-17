@@ -6,7 +6,7 @@ import { EditBlogCard } from "../../components/admin/editBlogCard";
 import { SaveBlogResponse } from "../../types/api/admin";
 
 export const BlogEditList = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [blogs, setBlogs] = useState<SaveBlogResponse[]>([]);
   useEffect(() => {
@@ -40,7 +40,10 @@ export const BlogEditList = () => {
                 <EditBlogCard
                   blog={blog}
                   onClick={() => {
-                    navigate(`/blog/${blog.urlSlug}`)
+                    const redirect = blog.published
+                      ? `/blog/${blog.urlSlug}`
+                      : `/admin/blog/${blog.urlSlug}`;
+                    navigate(redirect);
                   }}
                   onEdit={() => {}}
                   onDelete={async () => {

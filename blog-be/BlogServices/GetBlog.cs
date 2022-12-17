@@ -48,6 +48,11 @@ namespace BlogServices
             }
 
             var blog = blogs.ToList()[0];
+
+            if (!blog.Published)
+            {
+                return new NotFoundResult();
+            }
             return new OkObjectResult(_mapper.Map<GetBlogResponse>(blog));
         }
     }
