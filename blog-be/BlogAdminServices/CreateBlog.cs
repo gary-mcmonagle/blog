@@ -11,6 +11,8 @@ using BlogAdminServices.Requests;
 using BlogServicesShared;
 using AutoMapper;
 using BlogServicesShared.Responses;
+using Microsoft.Azure.Documents.Client;
+using System.Linq;
 
 namespace BlogAdminServices
 {
@@ -32,6 +34,7 @@ namespace BlogAdminServices
                 ConnectionStringSetting = "CosmosDBConnection"
             )]
                 IAsyncCollector<BlogEntity> documentsOut,
+            [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")] DocumentClient client,
             ILogger log
         )
         {
@@ -39,6 +42,20 @@ namespace BlogAdminServices
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             CreateBlogRequest data = JsonConvert.DeserializeObject<CreateBlogRequest>(requestBody);
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            var collectionUri = UriFactory.CreateDocumentCollectionUri("blog", "blog");
+
+            var matchingSlugDocument = client
+                .CreateDocumentQuery<BlogEntity>(collectionUri, option)
+                .Where(t => t.UrlSlug == data.UrlSlug)
+                .AsEnumerable()
+                .FirstOrDefault();
+
+            if (matchingSlugDocument != null)
+            {
+                return new BadRequestObjectResult("Slug already exists in system");
+            }
 
             var templateId = data.Template.Id;
             if (string.IsNullOrEmpty(templateId.ToString()))

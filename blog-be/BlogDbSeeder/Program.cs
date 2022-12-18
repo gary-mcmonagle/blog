@@ -30,7 +30,7 @@ ContainerProperties templatesConatinerProperties = new ContainerProperties()
 ContainerProperties blogContainerProperties = new ContainerProperties()
 {
     Id = "blog",
-    PartitionKeyPath = "/templateId",
+    PartitionKeyPath = "/template/templateId",
     IndexingPolicy = new IndexingPolicy()
     {
         Automatic = false,
