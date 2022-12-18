@@ -1,11 +1,12 @@
+using BlogServicesShared;
 using Newtonsoft.Json;
 
 namespace BlogAdminServices.Requests
 {
     public class CreateBlogRequest
     {
-        [JsonProperty("templateId")]
-        public string TemplateId { get; set; }
+        [JsonProperty("template")]
+        public BlogTemplateEntity Template { get; set; }
 
         [JsonProperty("content")]
         public dynamic Content { get; set; }

@@ -8,7 +8,7 @@ namespace BlogServicesShared
     {
         public BlogEntity(
             dynamic content,
-            string templateId,
+            BlogTemplateEntity template,
             string urlSlug,
             string title,
             bool published,
@@ -16,13 +16,16 @@ namespace BlogServicesShared
         )
         {
             Content = content;
-            TemplateId = templateId;
+            Template = template;
             UrlSlug = urlSlug;
             Title = title;
             Published = published;
             PublishDate = publishDate;
             Deleted = false;
         }
+
+        [JsonProperty("template")]
+        public BlogTemplateEntity Template { get; set; }
 
         [JsonProperty("content")]
         public dynamic Content { get; set; }

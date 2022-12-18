@@ -5,6 +5,7 @@ import { BlogSaveModal } from "./blogSaveModal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlogContent } from "../../types/content";
+import { Template } from "../../types/api/admin";
 
 const PreviewButton = ({
   onClick,
@@ -53,9 +54,9 @@ const SaveButton = ({
 
 type AuthorBaseProps = {
   content: BlogContent | null;
-  templateId: string | null;
+  template: Template;
 };
-export const AuthorBase = ({ content, templateId }: AuthorBaseProps) => {
+export const AuthorBase = ({ content, template }: AuthorBaseProps) => {
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const navigate = useNavigate();
   return (
@@ -67,11 +68,11 @@ export const AuthorBase = ({ content, templateId }: AuthorBaseProps) => {
           redirectUrl && navigate(redirectUrl);
         }}
         content={content || ""}
-        templateId={templateId || ""}
+        template={template}
       />
-      <PreviewButton disabled={!content || !templateId} />
+      <PreviewButton disabled={!content} />
       <SaveButton
-        disabled={!content || !templateId}
+        disabled={!content}
         onClick={() => {
           setSaveModalOpen(true);
         }}

@@ -40,19 +40,19 @@ namespace BlogAdminServices
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             CreateBlogRequest data = JsonConvert.DeserializeObject<CreateBlogRequest>(requestBody);
 
-            var templateId = data.TemplateId;
-            if (string.IsNullOrEmpty(templateId))
+            var templateId = data.Template.Id;
+            if (string.IsNullOrEmpty(templateId.ToString()))
             {
                 return new BadRequestObjectResult("No template id");
             }
 
             DateTime? publishDate = data.Published ? DateTime.Now : null;
 
-            string responseMessage = templateId;
+            string responseMessage = templateId.ToString();
             BlogEntity entity =
                 new(
                     data.Content,
-                    data.TemplateId,
+                    data.Template,
                     data.UrlSlug,
                     data.Title,
                     data.Published,

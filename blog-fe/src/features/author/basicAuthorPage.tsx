@@ -1,14 +1,14 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import { BasicAuthor } from "../../components/admin/author/basic";
+import { Template } from "../../types/api/admin";
 import { AuthorBase } from "./authorBase";
 
-export const BasicAuthorPage = () => {
+export const BasicAuthorPage = ({template}: {template: Template}) => {
   const [content, setContent] = useState<string | null>(null);
-  const templateId = "1234";
   return (
     <>
-      <AuthorBase content={content} templateId={templateId} />
+      <AuthorBase content={content} template={template} />
       <BasicAuthor
         onChange={(e) => {
           setContent(e);

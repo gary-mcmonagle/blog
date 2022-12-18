@@ -47,7 +47,10 @@ export type BlogSaveModalProps = {
   open: boolean;
   onClose: (redirectUrl?: string) => void;
   content: BlogContent;
-  templateId: string;
+  template: {
+    id: string
+    name: string
+  },
   updateBlogMetadata?: {
     id: string;
     urlSlug: string;
@@ -56,7 +59,7 @@ export type BlogSaveModalProps = {
 };
 
 export const BlogSaveModal = (props: BlogSaveModalProps) => {
-  const { open, content, templateId, updateBlogMetadata } = props;
+  const { open, content, template, updateBlogMetadata } = props;
   const {
     register,
     handleSubmit,
@@ -69,7 +72,7 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
   const onSubmitHandler = async (data: BlogFormFields) => {
     setIsLoading(true);
     const created = await saveBlog(
-      { ...data, templateId, content, published: data.publish },
+      { ...data, template, content, published: data.publish },
       updateBlogMetadata?.id
     );
     setIsLoading(false);

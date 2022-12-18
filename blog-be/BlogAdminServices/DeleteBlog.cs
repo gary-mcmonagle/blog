@@ -47,7 +47,7 @@ namespace BlogAdminServices
 
             BlogEntity e = new BlogEntity(
                 document.GetPropertyValue<dynamic>("content"),
-                document.GetPropertyValue<string>("templateId"),
+                document.GetPropertyValue<BlogTemplateEntity>("template"),
                 document.GetPropertyValue<string>("urlSlug"),
                 document.GetPropertyValue<string>("title"),
                 document.GetPropertyValue<bool>("published"),
