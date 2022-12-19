@@ -19,6 +19,7 @@ import { saveBlog } from "../../utils/saveBlog";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { SuccessSnack } from "../../components/snackbar/snackbar";
 
 const Container = styled(Box)({
   padding: 10,
@@ -48,9 +49,9 @@ export type BlogSaveModalProps = {
   onClose: (redirectUrl?: string) => void;
   content: BlogContent;
   template: {
-    id: string
-    name: string
-  },
+    id: string;
+    name: string;
+  };
   updateBlogMetadata?: {
     id: string;
     urlSlug: string;
@@ -77,6 +78,7 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
     );
     setIsLoading(false);
     reset();
+
     props.onClose(`/blog/${created.urlSlug}`);
   };
   return (

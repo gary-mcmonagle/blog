@@ -15,8 +15,8 @@ export const Author = () => {
   }, []);
 
   const getTemplate = () => {
-    const template = templates.find(t => t.name === "basic");
-    if(!template) {
+    const template = templates.find((t) => t.name === "basic");
+    if (!template) {
       return;
     }
     switch (templateName) {

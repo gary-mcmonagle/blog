@@ -1,7 +1,7 @@
 import { BlogContent } from "../content";
 
 export type Blog = {
-  template: Template
+  template: Template;
   content: any;
   urlSlug: string;
   title: string;
@@ -29,6 +29,6 @@ export type SaveBlogResponse = Blog & {
 export type Template = {
   id: string;
   name: string;
-}
+};
 
 export type TemplateResponse = Template;

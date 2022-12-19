@@ -6,6 +6,7 @@ import "./App.css";
 import { theme } from "./theme";
 import { ThemeProvider } from "./ThemeProvider";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
+import { SnackbarProvider } from "./contexts/SnackbarProvider";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,13 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <DarkModeProvider>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  </DarkModeProvider>
+  <SnackbarProvider>
+    <DarkModeProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </DarkModeProvider>
+  </SnackbarProvider>
 );
 
 export default App;

@@ -4,7 +4,7 @@ import { BasicAuthor } from "../../components/admin/author/basic";
 import { Template } from "../../types/api/admin";
 import { AuthorBase } from "./authorBase";
 
-export const BasicAuthorPage = ({template}: {template: Template}) => {
+export const BasicAuthorPage = ({ template }: { template: Template }) => {
   const [content, setContent] = useState<string | null>(null);
   return (
     <>

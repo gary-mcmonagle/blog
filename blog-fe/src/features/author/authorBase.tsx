@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BlogContent } from "../../types/content";
 import { Template } from "../../types/api/admin";
+import { useSnackbar } from "../../hooks/useSnackbar";
 
 const PreviewButton = ({
   onClick,
@@ -59,6 +60,7 @@ type AuthorBaseProps = {
 export const AuthorBase = ({ content, template }: AuthorBaseProps) => {
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { success } = useSnackbar();
   return (
     <Paper>
       <BlogSaveModal
@@ -66,6 +68,7 @@ export const AuthorBase = ({ content, template }: AuthorBaseProps) => {
         onClose={(redirectUrl) => {
           setSaveModalOpen(false);
           redirectUrl && navigate(redirectUrl);
+          success("Blog saved!");
         }}
         content={content || ""}
         template={template}
