@@ -1,17 +1,16 @@
-import { createTheme } from "@mui/material";
-import { green, grey, orange, purple, yellow } from "@mui/material/colors";
+import { createTheme } from '@mui/material'
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Theme {
     status: {
-      danger: string;
-    };
+      danger: string
+    }
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
     status?: {
-      danger?: string;
-    };
+      danger?: string
+    }
   }
 }
 
@@ -21,5 +20,5 @@ export const theme = createTheme({
   // },
   palette: {
     // mode: "dark",
-  },
-});
+  }
+})

@@ -1,20 +1,19 @@
 import {
   CreateBlogRequest,
-  GetAllBlogResponse,
   SaveBlogResponse,
   TemplateResponse,
-  UpdateBlogRequest,
-} from "../types/api/admin";
-import axios from "axios";
+  UpdateBlogRequest
+} from '../types/api/admin'
+import axios from 'axios'
 
-const adminApibasePath = process.env.REACT_APP_ADMIN_API_BASE_URL;
+const adminApibasePath = process.env.REACT_APP_ADMIN_API_BASE_URL ?? ''
 
 export const getAllBlogs = async (): Promise<SaveBlogResponse[]> => {
   const { data } = await axios.get<SaveBlogResponse[]>(
     `${adminApibasePath}/api/blog`
-  );
-  return data;
-};
+  )
+  return data
+}
 
 export const createBlog = async (
   blog: CreateBlogRequest
@@ -22,9 +21,9 @@ export const createBlog = async (
   const { data } = await axios.post<SaveBlogResponse>(
     `${adminApibasePath}/api/blog`,
     blog
-  );
-  return data;
-};
+  )
+  return data
+}
 
 export const updateBlog = async (
   updateBlog: UpdateBlogRequest,
@@ -33,18 +32,18 @@ export const updateBlog = async (
   const { data } = await axios.post<SaveBlogResponse>(
     `${adminApibasePath}/api/blog/${id}`,
     updateBlog
-  );
-  return data;
-};
+  )
+  return data
+}
 
 export const deleteBlog = async (id: string): Promise<void> => {
-  const { data } = await axios.delete(`${adminApibasePath}/api/blog/${id}`);
-  return data;
-};
+  const { data } = await axios.delete(`${adminApibasePath}/api/blog/${id}`)
+  return data
+}
 
 export const getAllTemplates = async (): Promise<TemplateResponse[]> => {
   const { data } = await axios.get<TemplateResponse[]>(
     `${adminApibasePath}/api/templates`
-  );
-  return data;
-};
+  )
+  return data
+}

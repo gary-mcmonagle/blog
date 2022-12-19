@@ -1,10 +1,10 @@
-import { createBlog, updateBlog } from "../api/adminApi";
-import { CreateBlogRequest } from "../types/api/admin";
+import { createBlog, updateBlog } from '../api/adminApi'
+import { CreateBlogRequest } from '../types/api/admin'
 
 export const saveBlog = async (blogToSave: CreateBlogRequest, id?: string) => {
-  const isUpdate = !!id;
+  const isUpdate = !!id
   if (isUpdate) {
-    return updateBlog(blogToSave, id);
+    return await updateBlog(blogToSave, id)
   }
-  return createBlog(blogToSave);
-};
+  return await createBlog(blogToSave)
+}

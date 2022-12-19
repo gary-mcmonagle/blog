@@ -1,29 +1,29 @@
-import { Grid, LinearProgress, Paper, Skeleton } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { deleteBlog, getAllBlogs, updateBlog } from "../../api/adminApi";
-import { EditBlogCard } from "../../components/admin/editBlogCard";
-import { SaveBlogResponse } from "../../types/api/admin";
+import { Grid, LinearProgress, Paper } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { deleteBlog, getAllBlogs, updateBlog } from '../../api/adminApi'
+import { EditBlogCard } from '../../components/admin/editBlogCard'
+import { SaveBlogResponse } from '../../types/api/admin'
 
 export const BlogEditList = () => {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [blogs, setBlogs] = useState<SaveBlogResponse[]>([]);
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [blogs, setBlogs] = useState<SaveBlogResponse[]>([])
   useEffect(() => {
     getAllBlogs().then((blogs) => {
-      setBlogs(blogs);
-      setIsLoading(false);
-    });
-  }, []);
+      setBlogs(blogs)
+      setIsLoading(false)
+    })
+  }, [])
   const updateBlogInList = (updated: SaveBlogResponse) => {
     const updatedBlogs = blogs.map((b) => {
       if (b.id === updated.id) {
-        b = updated;
+        b = updated
       }
-      return b;
-    });
-    setBlogs(updatedBlogs);
-  };
+      return b
+    })
+    setBlogs(updatedBlogs)
+  }
   return (
     <Paper>
       {isLoading && <LinearProgress />}
@@ -42,33 +42,33 @@ export const BlogEditList = () => {
                   onClick={() => {
                     const redirect = blog.published
                       ? `/blog/${blog.urlSlug}`
-                      : `/admin/blog/${blog.urlSlug}`;
-                    navigate(redirect);
+                      : `/admin/blog/${blog.urlSlug}`
+                    navigate(redirect)
                   }}
                   onEdit={() => {}}
                   onDelete={async () => {
-                    let conf = window.confirm("R U Sure ?");
+                    const conf = window.confirm('R U Sure ?')
                     if (conf) {
-                      await deleteBlog(blog.id);
-                      setBlogs(blogs.filter((b) => b.id !== blog.id));
+                      await deleteBlog(blog.id)
+                      setBlogs(blogs.filter((b) => b.id !== blog.id))
                     }
-                    return true;
+                    return true
                   }}
                   onPublish={async () => {
                     const updated = await updateBlog(
                       { published: true },
                       blog.id
-                    );
-                    updateBlogInList(updated);
-                    return true;
+                    )
+                    updateBlogInList(updated)
+                    return true
                   }}
                   onUnpublish={async () => {
                     const updated = await updateBlog(
                       { published: false },
                       blog.id
-                    );
-                    updateBlogInList(updated);
-                    return true;
+                    )
+                    updateBlogInList(updated)
+                    return true
                   }}
                 />
               </Grid>
@@ -76,5 +76,5 @@ export const BlogEditList = () => {
         </Grid>
       )}
     </Paper>
-  );
-};
+  )
+}

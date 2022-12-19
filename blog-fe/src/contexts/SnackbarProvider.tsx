@@ -1,23 +1,23 @@
-import * as React from "react";
-import { SuccessSnack } from "../components/snackbar/snackbar";
+import * as React from 'react'
+import { SuccessSnack } from '../components/snackbar/snackbar'
 
 type SnabarTypeProps = {
-  open: boolean;
-  setOpen: (o: boolean) => void;
-  message?: string;
-  setMessage: (m?: string | undefined) => void;
-};
+  open: boolean
+  setOpen: (o: boolean) => void
+  message?: string
+  setMessage: (m?: string | undefined) => void
+}
 export const SnackbarContext = React.createContext<{
-  success: SnabarTypeProps;
-} | null>(null);
+  success: SnabarTypeProps
+} | null>(null)
 
 export const SnackbarProvider: React.FC<React.PropsWithChildren> = ({
-  children,
+  children
 }) => {
-  const [successOpen, setSuccessOpen] = React.useState<boolean>(false);
+  const [successOpen, setSuccessOpen] = React.useState<boolean>(false)
   const [successMessage, setSuccessMessage] = React.useState<
-    string | undefined
-  >();
+  string | undefined
+  >()
   return (
     <SnackbarContext.Provider
       value={{
@@ -25,18 +25,18 @@ export const SnackbarProvider: React.FC<React.PropsWithChildren> = ({
           setOpen: setSuccessOpen,
           open: successOpen,
           message: successMessage,
-          setMessage: setSuccessMessage,
-        },
+          setMessage: setSuccessMessage
+        }
       }}
     >
       <SuccessSnack
         open={successOpen}
         onClose={() => {
-          setSuccessOpen(false);
+          setSuccessOpen(false)
         }}
         message={successMessage}
       />
       {children}
     </SnackbarContext.Provider>
-  );
-};
+  )
+}

@@ -1,2 +1,2 @@
-export type BasicBlogContent = string;
-export type BlogContent = BasicBlogContent;
+export type BasicBlogContent = string
+export type BlogContent = BasicBlogContent

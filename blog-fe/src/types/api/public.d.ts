@@ -1,3 +1,3 @@
 export type GetBlogResponse = {
-  content: any;
-};
+  content: any
+}

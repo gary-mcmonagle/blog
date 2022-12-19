@@ -3,12 +3,12 @@ import {
   AlertTitle,
   Snackbar,
   SnackbarProps,
-  Typography,
-} from "@mui/material";
+  Typography
+} from '@mui/material'
 
 type SuccessSnackProps = SnackbarProps & {
-  message?: string;
-};
+  message?: string
+}
 
 export const SuccessSnack = (props: SuccessSnackProps) => {
   return (
@@ -18,5 +18,5 @@ export const SuccessSnack = (props: SuccessSnackProps) => {
         <Typography>{props.message}</Typography>
       </Alert>
     </Snackbar>
-  );
-};
+  )
+}

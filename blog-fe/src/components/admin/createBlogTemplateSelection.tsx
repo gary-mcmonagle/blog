@@ -1,12 +1,12 @@
-import { List, ListItem, ListItemButton } from "@mui/material";
-import { TemplateResponse } from "../../types/api/admin";
+import { List, ListItem, ListItemButton } from '@mui/material'
+import { TemplateResponse } from '../../types/api/admin'
 
 export const CreateBlogTemplateSelection = ({
   templates,
-  onClick,
+  onClick
 }: {
-  templates: TemplateResponse[];
-  onClick: (template: TemplateResponse) => void;
+  templates: TemplateResponse[]
+  onClick: (template: TemplateResponse) => void
 }) => {
   return (
     <List>
@@ -14,7 +14,7 @@ export const CreateBlogTemplateSelection = ({
         <ListItem divider>
           <ListItemButton
             onClick={() => {
-              onClick(template);
+              onClick(template)
             }}
           >
             {template.name}
@@ -22,5 +22,5 @@ export const CreateBlogTemplateSelection = ({
         </ListItem>
       ))}
     </List>
-  );
-};
+  )
+}
