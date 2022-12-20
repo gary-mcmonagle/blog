@@ -1,7 +1,7 @@
 import { Fab, Paper } from '@mui/material'
 import PreviewIcon from '@mui/icons-material/Preview'
 import SaveIcon from '@mui/icons-material/Save'
-import { BlogSaveModal } from './blogSaveModal'
+import { BlogSaveModal, UpdateBlogMetadata } from './blogSaveModal'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BlogContent } from '../../types/content'
@@ -56,8 +56,9 @@ const SaveButton = ({
 type AuthorBaseProps = {
   content: BlogContent | null
   template: Template
+  updateBlogMetadata?: UpdateBlogMetadata
 }
-export const AuthorBase = ({ content, template }: AuthorBaseProps) => {
+export const AuthorBase = ({ content, template, updateBlogMetadata }: AuthorBaseProps) => {
   const [saveModalOpen, setSaveModalOpen] = useState(false)
   const navigate = useNavigate()
   const { success } = useSnackbar()
@@ -68,10 +69,11 @@ export const AuthorBase = ({ content, template }: AuthorBaseProps) => {
         onClose={(redirectUrl) => {
           setSaveModalOpen(false)
           redirectUrl && navigate(redirectUrl)
-          success('Blog saved!')
+          redirectUrl && success('Blog saved!')
         }}
         content={content ?? ''}
         template={template}
+        updateBlogMetadata={updateBlogMetadata}
       />
       <PreviewButton disabled={!content} />
       <SaveButton

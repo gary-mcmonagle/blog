@@ -43,6 +43,12 @@ type BlogFormFields = {
   urlSlug: string
 }
 
+export type UpdateBlogMetadata = {
+  id: string
+  urlSlug: string
+  title: string
+}
+
 export type BlogSaveModalProps = {
   open: boolean
   onClose: (redirectUrl?: string) => void
@@ -51,11 +57,7 @@ export type BlogSaveModalProps = {
     id: string
     name: string
   }
-  updateBlogMetadata?: {
-    id: string
-    urlSlug: string
-    title: string
-  }
+  updateBlogMetadata?: UpdateBlogMetadata
 }
 
 export const BlogSaveModal = (props: BlogSaveModalProps) => {
@@ -99,6 +101,7 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
                 {...register('urlSlug')}
                 label={(errors.urlSlug?.message as string) || 'Url'}
                 error={!(errors.urlSlug == null)}
+                value={updateBlogMetadata?.urlSlug}
                 required
                 fullWidth
               ></TextField>
@@ -106,6 +109,7 @@ export const BlogSaveModal = (props: BlogSaveModalProps) => {
                 {...register('title')}
                 label={(errors.title?.message as string) || 'Title'}
                 error={!(errors.title == null)}
+                value={updateBlogMetadata?.title}
                 required
                 fullWidth
               ></TextField>

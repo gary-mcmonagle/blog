@@ -45,7 +45,10 @@ export const BlogEditList = () => {
                       : `/admin/blog/${blog.urlSlug}`
                     navigate(redirect)
                   }}
-                  onEdit={() => {}}
+                  onEdit={() => {
+                    navigate(`/admin/blog/${blog.urlSlug}/edit`)
+                    return undefined
+                  }}
                   onDelete={async () => {
                     const conf = window.confirm('R U Sure ?')
                     if (conf) {

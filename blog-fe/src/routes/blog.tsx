@@ -18,7 +18,6 @@ export const Blog = () => {
   return (
     <Paper style={{ minHeight: '100vh' }}>
       {loading && <LinearProgress />}
-
       {!(blog == null) && <Basic content={blog.content} />}
     </Paper>
   )

@@ -15,6 +15,13 @@ export const getAllBlogs = async (): Promise<SaveBlogResponse[]> => {
   return data
 }
 
+export const getBlog = async (urlSlug: string): Promise<SaveBlogResponse> => {
+  const { data } = await axios.get<SaveBlogResponse>(
+    `${adminApibasePath}/api/blog/${urlSlug}`
+  )
+  return data
+}
+
 export const createBlog = async (
   blog: CreateBlogRequest
 ): Promise<SaveBlogResponse> => {
