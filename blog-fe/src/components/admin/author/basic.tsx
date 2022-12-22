@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { uploadImage } from '../../../api/adminApi'
 
 type BasicAuthorProps = {
   onChange: (value: string) => void
@@ -8,26 +9,44 @@ type BasicAuthorProps = {
 }
 export const BasicAuthor = ({ onChange, startValue }: BasicAuthorProps) => {
   const [value, setValue] = useState(startValue)
+  const quillRef = useRef<any>()
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        ['image']
+      ],
+      handlers: {
+        image: () => {
+          const input = document.createElement('input')
+          input.setAttribute('type', 'file')
+          input.setAttribute('accept', 'image/*')
+          input.click()
+
+          input.onchange = () => {
+            if (input.files) {
+              const file = input.files[0]
+              uploadImage(file).then(({ url }) => {
+                quillRef.current.getEditor().insertEmbed(null, 'image', url)
+              })
+
+              // file type is only image.
+              if (/^image\//.test(file.type)) {
+                // saveToServer(file)
+              } else {
+                console.warn('You could only upload images.')
+              }
+            }
+          }
+
+          // quillRef.current.getEditor().insertEmbed(null, 'image', 'test.com')
+        }
+      }
+    }
+  }), [])
   return (
     <ReactQuill
-      modules={{
-        toolbar: [
-          [{ header: [false, 1, 2, 3, 4, 5, 6] }, 'bold', 'italic'],
-          [
-            { list: 'ordered' },
-            { list: 'bullet' },
-            { indent: '-1' },
-            { indent: '+1' }
-          ],
-          ['blockquote', 'code-block', 'span-block', 'link', 'hr'],
-          [
-            { align: '' },
-            { align: 'center' },
-            { align: 'right' },
-            { align: 'justify' }
-          ]
-        ]
-      }}
+      ref={quillRef}
+      modules={modules}
       theme="snow"
       value={value}
       onChange={(val) => {

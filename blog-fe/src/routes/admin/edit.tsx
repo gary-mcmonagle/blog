@@ -20,7 +20,11 @@ export const EditBlog = () => {
     if (!blog) return <></>
     switch (blog.template.name) {
       case 'basic':
-        return <BasicAuthorPage template={blog.template} content={blog.content} updateBlogMetadata={{ id: blog.id, urlSlug: blog.urlSlug, title: blog.title }}/>
+        return <BasicAuthorPage
+        template={blog.template}
+        content={blog.content}
+        updateBlogMetadata={{ id: blog.id, urlSlug: blog.urlSlug, title: blog.title }}
+        />
       default:
         return <Typography>Not found</Typography>
     }

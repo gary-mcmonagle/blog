@@ -54,3 +54,14 @@ export const getAllTemplates = async (): Promise<TemplateResponse[]> => {
   )
   return data
 }
+
+export const uploadImage = async (image: File): Promise<{ url: string }> => {
+  const formData = new FormData()
+  formData.append('File', image)
+  const { data } = await axios.post(`${adminApibasePath}/api/image/${image.name}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  return { url: data.url }
+}

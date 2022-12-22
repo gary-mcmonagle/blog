@@ -14,7 +14,7 @@ export const Blog = () => {
       setBlog(d)
       setLoading(false)
     }).catch(() => {})
-  })
+  }, [])
   return (
     <Paper style={{ minHeight: '100vh' }}>
       {loading && <LinearProgress />}

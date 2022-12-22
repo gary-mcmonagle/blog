@@ -8,7 +8,8 @@ export const BasicAuthorPage = ({ template, content: initalContent, updateBlogMe
   const [content, setContent] = useState<string | null>(initalContent)
   return (
     <>
-      <AuthorBase content={content} template={template} updateBlogMetadata={updateBlogMetadata} />
+      <AuthorBase
+       content={content} template={template} updateBlogMetadata={updateBlogMetadata} />
       <BasicAuthor
         startValue={content ?? ''}
         onChange={(e) => {
