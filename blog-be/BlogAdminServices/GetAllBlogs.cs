@@ -13,35 +13,34 @@ using BlogServicesShared;
 using AutoMapper;
 using BlogServicesShared.Responses;
 
-namespace BlogAdminServices
+namespace BlogAdminServices;
+
+public class GetAllBlogs
 {
-    public class GetAllBlogs
+    private readonly IMapper _mapper;
+
+    public GetAllBlogs(IMapper mapper)
     {
-        private readonly IMapper _mapper;
+        _mapper = mapper;
+    }
 
-        public GetAllBlogs(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
+    [FunctionName("GetAllBlogs")]
+    public async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "blog")] HttpRequest req,
+        [CosmosDB(
+            "blog",
+            "blog",
+            ConnectionStringSetting = "CosmosDBConnection",
+            SqlQuery = "select * from blog where not blog.deleted"
+        )]
+            IEnumerable<BlogEntity> toDoItems,
+        ILogger log
+    )
+    {
+        log.LogInformation("C# HTTP trigger function processed a request.");
 
-        [FunctionName("GetAllBlogs")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "blog")] HttpRequest req,
-            [CosmosDB(
-                "blog",
-                "blog",
-                ConnectionStringSetting = "CosmosDBConnection",
-                SqlQuery = "select * from blog where not blog.deleted"
-            )]
-                IEnumerable<BlogEntity> toDoItems,
-            ILogger log
-        )
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+        log.LogInformation(toDoItems.ToList().Count.ToString());
 
-            log.LogInformation(toDoItems.ToList().Count.ToString());
-
-            return new OkObjectResult(toDoItems.Select(blog => _mapper.Map<GetBlogResponse>(blog)));
-        }
+        return new OkObjectResult(toDoItems.Select(blog => _mapper.Map<GetBlogResponse>(blog)));
     }
 }

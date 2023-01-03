@@ -11,6 +11,10 @@
     <None Remove="AutoMapper" />
     <None Remove="Mappers\" />
     <None Remove="Responses\" />
+    <None Remove="Dtos\" />
+    <None Remove="Dtos\Requests\" />
+    <None Remove="Dtos\Responses\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
@@ -19,6 +23,10 @@
   <ItemGroup>
     <Folder Include="Mappers\" />
     <Folder Include="Responses\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Dtos\Requests\" />
+    <Folder Include="Dtos\Responses\" />
+    <Folder Include="Services\" />
   </ItemGroup>
       <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
     <Exec Command="dotnet csharpier ." />

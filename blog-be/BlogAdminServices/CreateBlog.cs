@@ -13,16 +13,20 @@ using AutoMapper;
 using BlogServicesShared.Responses;
 using Microsoft.Azure.Documents.Client;
 using System.Linq;
+using BlogServicesShared.Services;
+using BlogServicesShared.Dtos.Requests;
 
 namespace BlogAdminServices
 {
     public class CreateBlog
     {
         private readonly IMapper _mapper;
+        private readonly IBlogService _blogService;
 
-        public CreateBlog(IMapper mapper)
+        public CreateBlog(IMapper mapper, IBlogService blogService)
         {
             _mapper = mapper;
+            _blogService = blogService;
         }
 
         [FunctionName("CreateBlog")]
@@ -42,6 +46,11 @@ namespace BlogAdminServices
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             CreateBlogRequest data = JsonConvert.DeserializeObject<CreateBlogRequest>(requestBody);
+            var createDto = JsonConvert.DeserializeObject<CreateBlogDto>(requestBody);
+
+            var e = await _blogService.Create(createDto);
+            return new OkObjectResult(_mapper.Map<GetBlogResponse>(e));
+            /*
 
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             var collectionUri = UriFactory.CreateDocumentCollectionUri("blog", "blog");
@@ -77,6 +86,7 @@ namespace BlogAdminServices
                 );
             await documentsOut.AddAsync(entity);
             return new OkObjectResult(_mapper.Map<GetBlogResponse>(entity));
+            */
         }
     }
 }
