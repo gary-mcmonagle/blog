@@ -23,4 +23,10 @@ public class BlogService : IBlogService
             throw new Exception("Could not create");
         return await _blogWriteRepository.Add(createDto);
     }
+
+    public async Task<BlogEntity?> GetSingle(BlogQuery query)
+    {
+        var blogs = await _blogReadRepository.Get(query);
+        return blogs.Count > 0 ? blogs[0] : null;
+    }
 }
